@@ -1,0 +1,39 @@
+.calendar-view {
+
+}
+
+.calendar-view__grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+}
+
+.calendar-view__day {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.calendar-view__date {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.calendar-view__item {
+    margin-bottom: 5px;
+}
+
+.calendar-view__expense {
+    color: red;
+}
+
+.calendar-view__income {
+    color: green;
+}
+
+.calendar-view__empty {
+    color: #ccc;
+}

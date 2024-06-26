@@ -1,0 +1,284 @@
+.budget-manager {
+    font-family: 'NeoDunggeunmo', sans-serif;
+    padding: 20px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 800px;
+    margin: -55px -10px;
+}
+
+.budget-manager__header {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.budget-manager__main-content {
+    display: flex;
+    justify-content: space-between; /* 수평 정렬을 위해 추가 */
+}
+
+.budget-manager__form-content {
+    flex: 1;
+}
+
+.budget-manager__overview-content {
+    position: absolute;
+    width: 240px;
+    height: 345px;
+    margin-left: 683px;
+    top: 106px;
+    right: 53px;
+    padding: 10px;
+    border: 2px solid #060000;
+}
+
+.budget-manager__summary {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.budget-manager__summary-row {
+    display: flex;
+    align-items: center;
+    margin-left: 100px;
+}
+
+.budget-manager__summary-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-right: 110px;
+}
+
+.budget-manager__menu-bar {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.budget-manager__select{
+    display: flex;
+    margin-bottom: -15px;
+}
+
+.budget-manager__select-bar{
+    background-color: white;
+    margin: 5px;
+    margin-right: 20px;
+    min-width: 200px;
+    height: 20px;
+}
+
+.budget-manager__input{
+    width: 250px;
+}
+
+.budget-manager__add-item-form {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.budget-manager__add-item-form input,
+.budget-manager__add-item-form button {
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.budget-manager__add-item-form button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.budget-manager__add-item-form button:hover {
+    background-color: #45a049;
+}
+
+.budget-manager__item-list {
+    list-style-type: none;
+    padding: 0;
+    margin-top: -10px;
+}
+
+.budget-manager__item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.budget-manager__item-date {
+    width: 20%;
+}
+
+.budget-manager__item-name {
+    width: 50%;
+}
+
+.budget-manager__item-amount {
+    width: 20%;
+    text-align: right;
+    margin-right: 20px;
+}
+
+/* 기존 스타일 아래에 추가 */
+
+/* Edit 버튼 스타일 */
+.budget-manager__edit-btn {
+    background-color: #4CAF50; /* 초록색 배경 */
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.budget-manager__edit-btn:hover {
+    background-color: #45a049; /* 호버 시 더 어두운 초록색 */
+}
+
+/* Delete 버튼 스타일 */
+.budget-manager__delete-btn {
+    background-color: #f44336; /* 빨간색 배경 */
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.budget-manager__delete-btn:hover {
+    background-color: #da190b; /* 호버 시 더 어두운 빨간색 */
+}
+
+.budget-manager__expense {
+    color: red;
+    font-size: 25px;
+}
+
+.budget-manager__income {
+    color: green;
+}
+
+.budget-manager__overview-content ul {
+    list-style: none;
+    padding: 0;
+}
+
+.budget-manager__overview-content li {
+    cursor: pointer;
+    margin-bottom: 10px;
+    font-size: 30px;
+}
+
+.budget-manager__spend {
+    font-weight: 900;
+    color: red;
+    font-size: 20px;
+}
+
+.budget-manager__income {
+    font-weight: 900;
+    color: green;
+    font-size: 20px;
+}
+
+.budget-manager__balance {
+    font-weight: 900;
+    font-size: 20px;
+}
+
+.budget-manager__value {
+    font-size: 20px;
+}
+
+.budget-manager__pixel10gif {
+    margin: 0px 0px -144px 0px;
+}
+
+/* Chart and Bar Chart styles */
+.budget-manager__chart-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.budget-manager__chart, .budget-manager__bar-chart {
+    flex: 1;
+    margin: 0 20px;
+}
+
+.budget-manager__bar-chart canvas {
+    max-height: 300px;
+}
+
+.budget-manager__menu-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    margin: 0 10px;
+}
+
+.budget-manager__menu-icon {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 4px;
+}
+
+.budget-manager__item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+.budget-manager__item-date {
+    flex: 1;
+}
+
+.budget-manager__item-icon {
+    flex: 0 0 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.budget-manager__item-name {
+    flex: 2;
+}
+
+.budget-manager__item-amount {
+    flex: 1;
+    text-align: right;
+}
+
+.budget-manager__edit-btn,
+.budget-manager__delete-btn {
+    margin-left: 10px;
+}

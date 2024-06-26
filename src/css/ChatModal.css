@@ -1,0 +1,71 @@
+.checklist {
+    font-family: 'NeoDunggeunmo', sans-serif;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 630px;
+    margin: 20px auto;
+}
+
+.checklist__title {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.checklist__form {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.checklist__input,
+.checklist__button {
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.checklist__button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.checklist__button:hover {
+    background-color: #45a049;
+}
+
+.checklist__list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.checklist__item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.checklist__item-text {
+    flex-grow: 1;
+}
+
+.checklist__item-button {
+    background-color: #008CBA;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-left: 5px;
+}
+
+.checklist__item-button:hover {
+    background-color: #005f73;
+}

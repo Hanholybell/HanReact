@@ -1,0 +1,47 @@
+.monthly-overview {
+    height: 320px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+}
+
+.month-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.month-button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.month-button:hover {
+    background-color: #0056b3;
+}
+
+.monthly-total {
+    margin-top: 40px;
+    font-size: 23px;
+    font-weight: bold;
+}
+
+.budget-manager__pixel11gif {
+    width: 80px;
+    margin: 0px -50px -118px 3px;
+    transform: scaleX(-1);
+}
+.budget-manager__pixel12gif {
+    width: 30px;
+    margin: 20px 0 0px 167px; 
+}
+.budget-manager__pixel13gif {
+    width: 78px;
+    margin: 0px 0px -117px 61px;
+
+}

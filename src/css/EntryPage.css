@@ -1,0 +1,110 @@
+@import url('https://fastly.jsdelivr.net/npm/galmuri@latest/dist/galmuri.css');
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: url('../assets/bonobono.jpg') no-repeat center center fixed; 
+    background-size: cover;
+    font-family: 'Galmuri';
+  }
+  
+  .ent-gif {
+    width: 150px; /* 적절한 크기 조정 */
+    margin: 20px 20px; /* 상하 여백 제공 */
+  }
+  .ent-logo {
+    position: absolute;
+  }
+  
+  #entrybox {
+    display: flex;
+    justify-content: center;
+    width: 100%; /* 전체 너비를 사용하도록 설정 */
+    margin-bottom: -320px;
+  }
+  
+  .entrybutton {
+    padding: 10px 20px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    background-color: #ff4500;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    position: absolute; /* absolute를 사용하여 컨테이너 내에서 위치를 지정합니다 */
+    z-index: 1000; /* 높은 값으로 설정하여 다른 요소들보다 위에 오도록 합니다 */
+  }
+
+  .ent-img3{
+    position: absolute;
+    margin: 350px -1278px 0 31px;
+    width: 200px;
+  }
+  .ent-img2{
+    position: absolute;
+    margin: 618px -1188px 0 31px;
+    width: 300px;
+  }
+
+  .ent-gif {
+    width: 380px;
+    position: absolute;
+    margin: -400px 0 79px 428px;
+}
+
+ .ent-mirrorball{
+  position: absolute;
+  width: 250px;
+  margin-right: 700px;
+  margin-bottom: 590px;
+ }
+
+ .ent-dancer{
+  position: absolute;
+  width: 250px;
+  margin-right: 1000px;
+  margin-top: 460px;
+ }
+
+ .ent-dancer2{
+  position: absolute;
+  width: 230px;
+  margin-right: 392px;
+  margin-top: 505px;
+ }
+
+ .ent-light1{
+  position: absolute;
+  width: 400px;
+  margin-bottom: 460px;
+  margin-right: 568px;
+ }
+
+ .ent-light2{
+  position: absolute;
+  margin-right: 1361px;
+  margin-top: 530px;
+  width: 170px;
+ }
+
+ .ent-light3{
+  position: absolute;
+  width: 1000px;
+  margin-right: 793px;
+ }
+
+ .ent-gif1{
+  position: absolute;
+  bottom: -41px;
+  right: 222px;
+  width: 405px;
+ }
+
+ .ent-gif2{
+  position: absolute;
+  bottom: 150px;
+  right: 280px;
+ }

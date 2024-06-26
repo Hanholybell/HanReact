@@ -1,0 +1,109 @@
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.window {
+  position: absolute;
+  width: 500px;
+  background-color: #c7c7c7;
+  padding: 4px;
+  border: 2px solid #2A2A2A;
+  cursor: move;
+  display: flex;
+  flex-direction: column; /* Flexbox를 사용하여 창의 자식 요소를 수직으로 정렬 */
+}
+
+.modal-title-bar {
+  display: flex;
+  align-items: center;
+  background-color: #2b2bbd;
+  color: white;
+  padding: 4px;
+}
+
+.title {
+  font-family: 'NeoDunggeunmo';
+  font-size: 17px;
+}
+
+.controls {
+  display: flex;
+}
+
+.control {
+  width: 20px;
+  height: 20px;
+  background-color: #c7c7c7;
+  margin-left: 2px;
+  cursor: pointer;
+}
+
+.control.minimize::before {
+  content: '-';
+  display: block;
+  text-align: center;
+}
+
+.control.maximize::before {
+  content: '□';
+  display: block;
+  text-align: center;
+}
+
+.control.close::before {
+  content: '×';
+  display: block;
+  text-align: center;
+}
+
+.content-container {
+  padding: 10px;
+  background-color: #c7c7c7;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* 가능한 모든 공간을 차지하도록 설정 */
+  justify-content: space-between; /* 컨텐츠 사이에 공간을 균등하게 배치 */
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex-grow: 1; /* 로그인 폼이 가능한 모든 공간을 차지하도록 설정 */
+  justify-content: center; /* 중앙에 정렬 */
+}
+
+.form-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+button {
+  padding: 5px 10px;
+  cursor: pointer;
+  background-color: #000080;
+  border: none;
+}
+
+button[type="button"] {
+  background-color: #c7c7c7;
+  color: black;
+}
+
+button[type="button"]:hover {
+  background-color: #bababa;
+}
