@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../css/Modal.css';
 import BudgetManager from './Budget/BudgetManager';
 import ChatContent from './Chat/ChatModal';
-import GameContent from './Game/GameModal';
+import GameContent from './Game/GameContent';
 
 function Modal({ onClose, selectedMonth, activeModal, onMonthSelect }) {
     const [dragging, setDragging] = useState(false);
