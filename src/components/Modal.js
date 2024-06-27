@@ -1,8 +1,9 @@
+// src/components/Modal.js
 import React, { useState, useEffect } from 'react';
 import '../css/Modal.css';
 import BudgetManager from './Budget/BudgetManager';
 import ChatContent from './Chat/ChatModal';
-import GameContent from './Game/GameContent';
+import GameModal from './Game/GameModal'; // GameModal로 변경
 
 function Modal({ onClose, selectedMonth, activeModal, onMonthSelect }) {
     const [dragging, setDragging] = useState(false);
@@ -51,7 +52,7 @@ function Modal({ onClose, selectedMonth, activeModal, onMonthSelect }) {
             case 'edit':
                 return <ChatContent />;
             case 'Game':
-                return <GameContent />;
+                return <GameModal onClose={onClose} />; // GameModal로 변경
             case 'view':
                 return <div>View Content</div>;
             case 'help':
