@@ -1,46 +1,33 @@
-// src/components/Game/CreateRoom.js
+// CreateRoom.js
 import React, { useState } from 'react';
+import '../../css/CreateRoom.css';
 
-function CreateRoom({ onCreate }) {
-    const [roomName, setRoomName] = useState('');
-    const [password, setPassword] = useState('');
-    const [isPrivate, setIsPrivate] = useState(false);
+function CreateRoom({ onCreate, onBack }) {
+  const [roomName, setRoomName] = useState('');
+  const [password, setPassword] = useState('');
 
-    const handleCreate = () => {
-        if (roomName.trim()) {
-            onCreate(roomName, isPrivate ? password : null);
-        } else {
-            alert("방 이름을 입력하세요.");
-        }
-    };
+  const handleCreate = () => {
+    onCreate({ name: roomName, players: 1 });
+  };
 
-    return (
-        <div className="create-room-container">
-            <input 
-                type="text" 
-                placeholder="방 이름" 
-                value={roomName} 
-                onChange={(e) => setRoomName(e.target.value)} 
-            />
-            <label>
-                <input 
-                    type="checkbox" 
-                    checked={isPrivate} 
-                    onChange={(e) => setIsPrivate(e.target.checked)} 
-                />
-                비밀번호 설정
-            </label>
-            {isPrivate && (
-                <input 
-                    type="password" 
-                    placeholder="비밀번호" 
-                    value={password} 
-                    onChange={(e) => setPassword(e.target.value)} 
-                />
-            )}
-            <button onClick={handleCreate}>만들기</button>
-        </div>
-    );
+  return (
+    <div className="create-room-container">
+      <input
+        type="text"
+        placeholder="방 이름"
+        value={roomName}
+        onChange={(e) => setRoomName(e.target.value)}
+      />
+      <input
+        type="password"
+        placeholder="비밀번호 (선택)"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      <button onClick={handleCreate}>방 만들기</button>
+      <button onClick={onBack}>뒤로가기</button>
+    </div>
+  );
 }
 
 export default CreateRoom;

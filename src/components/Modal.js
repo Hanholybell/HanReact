@@ -1,15 +1,25 @@
-// src/components/Modal.js
+// Modal.js
 import React, { useState, useEffect } from 'react';
 import '../css/Modal.css';
-import BudgetManager from './Budget/BudgetManager';
-import ChatContent from './Chat/ChatModal';
-import GameModal from './Game/GameModal'; // GameModal로 변경
+import BudgetManager from '../components/Budget/BudgetManager';
+import ChatContent from '../components/Chat/ChatModal';
+import GameContent from '../components/Game/GameContent';
+import JoinGame from '../components/Game/JoinGame';
+import GameRooms from '../components/Game/GameRooms';
+import CreateRoom from '../components/Game/CreateRoom';
 
 function Modal({ onClose, selectedMonth, activeModal, onMonthSelect }) {
     const [dragging, setDragging] = useState(false);
     const [pos, setPos] = useState({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
     const [startPos, setStartPos] = useState({ x: 0, y: 0 });
     const [currentContent, setCurrentContent] = useState(activeModal);
+    const [nickname, setNickname] = useState('');
+    const [rooms, setRooms] = useState([
+        { name: '방1', players: 1 },
+        { name: '방2', players: 2 },
+        { name: '방3', players: 1 },
+        { name: '방4', players: 2 },
+    ]);
 
     useEffect(() => {
         const handleMouseMove = (e) => {
@@ -43,6 +53,34 @@ function Modal({ onClose, selectedMonth, activeModal, onMonthSelect }) {
         e.stopPropagation();
     };
 
+    const handleJoinGame = (nickname) => {
+        setNickname(nickname);
+        setCurrentContent('rooms');
+    };
+
+    const handleJoinRoom = (room) => {
+        setCurrentContent('game');
+    };
+
+    const handleCreateRoom = () => {
+        setCurrentContent('createRoom');
+    };
+
+    const handleRoomCreated = (room) => {
+        setRooms([...rooms, room]);
+        setCurrentContent('rooms');
+    };
+
+    const handleBack = () => {
+        if (currentContent === 'rooms') {
+            setCurrentContent('Game');
+        } else if (currentContent === 'createRoom') {
+            setCurrentContent('rooms');
+        } else if (currentContent === 'game') {
+            setCurrentContent('rooms');
+        }
+    };
+
     const renderContent = () => {
         switch (currentContent) {
             case 'Launcher':
@@ -52,7 +90,13 @@ function Modal({ onClose, selectedMonth, activeModal, onMonthSelect }) {
             case 'edit':
                 return <ChatContent />;
             case 'Game':
-                return <GameModal onClose={onClose} />; // GameModal로 변경
+                return <JoinGame onJoin={handleJoinGame} onBack={onClose} />;
+            case 'rooms':
+                return <GameRooms rooms={rooms} onJoinRoom={handleJoinRoom} onCreateRoom={handleCreateRoom} onBack={handleBack} />;
+            case 'createRoom':
+                return <CreateRoom onCreate={handleRoomCreated} onBack={handleBack} />;
+            case 'game':
+                return <GameContent />;
             case 'view':
                 return <div>View Content</div>;
             case 'help':
@@ -71,6 +115,8 @@ function Modal({ onClose, selectedMonth, activeModal, onMonthSelect }) {
             case 'edit':
                 return 'Chat';
             case 'Game':
+            case 'rooms':
+            case 'createRoom':
                 return 'Game';
             default:
                 return 'Modal';

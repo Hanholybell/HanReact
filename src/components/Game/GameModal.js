@@ -5,7 +5,7 @@ import GameRooms from './GameRooms';
 import CreateRoom from './CreateRoom';
 import GameContent from './GameContent';
 
-function GameModal({ onClose }) {
+function GameModal() {
     const [nickname, setNickname] = useState('');
     const [currentView, setCurrentView] = useState('nickname');
     const [selectedRoom, setSelectedRoom] = useState(null);
@@ -29,16 +29,6 @@ function GameModal({ onClose }) {
         setCurrentView('rooms');
     };
 
-    const handleBack = () => {
-        if (currentView === 'game' || currentView === 'createRoom') {
-            setCurrentView('rooms');
-        } else if (currentView === 'rooms') {
-            setCurrentView('nickname');
-        } else {
-            onClose();
-        }
-    };
-
     const renderView = () => {
         switch (currentView) {
             case 'nickname':
@@ -56,7 +46,6 @@ function GameModal({ onClose }) {
 
     return (
         <div className="game-modal">
-            <button className="back-button" onClick={handleBack}>뒤로가기</button>
             {renderView()}
         </div>
     );
