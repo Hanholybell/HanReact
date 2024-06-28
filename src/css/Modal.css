@@ -279,3 +279,95 @@
     margin-right: auto;
     border-right: 1px solid black;
 }
+.canvas-container {
+    position: relative;
+  }
+  
+  .button-back {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 5px 10px;
+    background-color: #ff6666;
+    border: none;
+    color: white;
+    cursor: pointer;
+    z-index: 10;
+  }
+  
+  .nickname-container,
+  .rooms-container,
+  .create-room-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+  
+  .nickname-container input,
+  .create-room-container input {
+    margin: 10px 0;
+    padding: 5px;
+    font-size: 16px;
+  }
+  
+  .rooms-container .room {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin: 5px 0;
+  }
+  
+  .rooms-container button,
+  .create-room-container button,
+  .nickname-container button {
+    margin: 10px;
+    padding: 5px 10px;
+    background-color: #66ccff;
+    border: none;
+    color: white;
+    cursor: pointer;
+  }
+
+  .loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px; /* GIF 간격 조정 */
+  }
+  
+  .loading-gif-1 {
+    width: 350px;
+    height: 80px;
+    position: absolute;
+    bottom: 228px;
+}
+
+.loading-gif-2 {
+    width: 235px;
+    height: 101px;
+    position: absolute;
+    top: 212px;
+    left: 420px;
+    z-index: 3;
+}
+
+.loading-gif-3 {
+    top: 180px;
+    width: 220px;
+    height: 93px;
+    position: absolute;
+    left: 422px;
+    z-index: 1;
+}
+
+.loading-gif-4 {
+    top: 330px;
+    width: 220px;
+    height: 100px;
+    position: absolute;
+    left: 470px;
+}

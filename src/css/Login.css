@@ -1,19 +1,20 @@
-.create-room-container {
+.login-container {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
+    flex-direction: column;
+    height: 100%;
   }
   
-  .create-room-container input {
+  .login-container input {
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
   }
   
-  .create-room-container button {
+  .login-container button {
     padding: 10px 20px;
-    margin: 5px;
     border: none;
     background-color: #007BFF;
     color: white;

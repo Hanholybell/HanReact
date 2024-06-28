@@ -1,16 +1,16 @@
-// src/components/Game/GameModal.js
 import React, { useState } from 'react';
-import NicknameInput from './NicknameInput';
+import Login from './Login';
 import GameRooms from './GameRooms';
+import GameBoard from './GameBoard';
 import CreateRoom from './CreateRoom';
-import GameContent from './GameContent';
+import '../../css/GameModal.css';
 
-function GameModal() {
+const GameModal = ({ onClose }) => {
     const [nickname, setNickname] = useState('');
-    const [currentView, setCurrentView] = useState('nickname');
+    const [currentView, setCurrentView] = useState('login');
     const [selectedRoom, setSelectedRoom] = useState(null);
 
-    const handleJoin = (nickname) => {
+    const handleLogin = (nickname) => {
         setNickname(nickname);
         setCurrentView('rooms');
     };
@@ -20,35 +20,22 @@ function GameModal() {
         setCurrentView('game');
     };
 
+    const handleBackToRooms = () => {
+        setCurrentView('rooms');
+    };
+
     const handleCreateRoom = () => {
         setCurrentView('createRoom');
     };
 
-    const handleRoomCreate = (roomName, password) => {
-        // 방 생성 로직 추가
-        setCurrentView('rooms');
-    };
-
-    const renderView = () => {
-        switch (currentView) {
-            case 'nickname':
-                return <NicknameInput onJoin={handleJoin} />;
-            case 'rooms':
-                return <GameRooms onRoomSelect={handleRoomSelect} onCreateRoom={handleCreateRoom} />;
-            case 'createRoom':
-                return <CreateRoom onCreate={handleRoomCreate} />;
-            case 'game':
-                return <GameContent />;
-            default:
-                return null;
-        }
-    };
-
     return (
-        <div className="game-modal">
-            {renderView()}
+        <div className="game-modal-content">
+            {currentView === 'login' && <Login onLogin={handleLogin} />}
+            {currentView === 'rooms' && <GameRooms onRoomSelect={handleRoomSelect} onCreateRoom={handleCreateRoom} />}
+            {currentView === 'createRoom' && <CreateRoom onBack={handleBackToRooms} />}
+            {currentView === 'game' && <GameBoard room={selectedRoom} onBack={handleBackToRooms} />}
         </div>
     );
-}
+};
 
 export default GameModal;

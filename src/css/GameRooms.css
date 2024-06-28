@@ -1,34 +1,35 @@
-/* GameRooms.css */
-.game-rooms-container {
+.rooms-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    height: 100%;
-    background: #111;
-    color: white;
   }
   
-  .game-rooms-container ul {
+  .rooms-container ul {
     list-style: none;
     padding: 0;
   }
   
-  .game-rooms-container li {
+  .rooms-container li {
+    display: flex;
+    justify-content: space-between;
     padding: 10px;
-    margin: 10px;
-    background: #222;
-    border: 1px solid #333;
-    border-radius: 5px;
-    cursor: pointer;
+    margin-bottom: 10px;
+    background-color: #f4f4f4;
+    width: 300px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
   }
   
-  .game-rooms-container button {
-    padding: 10px 20px;
-    background: #0a0;
-    color: white;
+  .rooms-container button {
+    padding: 5px 10px;
     border: none;
-    border-radius: 5px;
+    background-color: #007BFF;
+    color: white;
     cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .rooms-container h2 {
+    margin-bottom: 20px;
   }
   

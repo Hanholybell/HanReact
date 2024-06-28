@@ -1,25 +1,26 @@
-// Modal.js
 import React, { useState, useEffect } from 'react';
 import '../css/Modal.css';
-import BudgetManager from '../components/Budget/BudgetManager';
-import ChatContent from '../components/Chat/ChatModal';
-import GameContent from '../components/Game/GameContent';
-import JoinGame from '../components/Game/JoinGame';
-import GameRooms from '../components/Game/GameRooms';
-import CreateRoom from '../components/Game/CreateRoom';
+import BudgetManager from './Budget/BudgetManager';
+import ChatContent from './Chat/ChatModal';
+import GameModal from './Game/GameModal';
+import loadingGif1 from '../assets/loading1.gif';
+import loadingGif2 from '../assets/loading2.gif';
+import loadingGif3 from '../assets/loading3.gif';
+import loadingGif4 from '../assets/loading4.gif';
+
+const loadingGifs = [
+  { src: loadingGif1, className: 'loading-gif-1' },
+  { src: loadingGif2, className: 'loading-gif-2' },
+  { src: loadingGif3, className: 'loading-gif-3' },
+  { src: loadingGif4, className: 'loading-gif-4' },
+];
 
 function Modal({ onClose, selectedMonth, activeModal, onMonthSelect }) {
     const [dragging, setDragging] = useState(false);
     const [pos, setPos] = useState({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
     const [startPos, setStartPos] = useState({ x: 0, y: 0 });
     const [currentContent, setCurrentContent] = useState(activeModal);
-    const [nickname, setNickname] = useState('');
-    const [rooms, setRooms] = useState([
-        { name: '방1', players: 1 },
-        { name: '방2', players: 2 },
-        { name: '방3', players: 1 },
-        { name: '방4', players: 2 },
-    ]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const handleMouseMove = (e) => {
@@ -44,6 +45,17 @@ function Modal({ onClose, selectedMonth, activeModal, onMonthSelect }) {
         };
     }, [dragging, startPos]);
 
+    useEffect(() => {
+        setLoading(true);
+        const timer = setTimeout(() => {
+            setLoading(false);
+        }, 1600);
+
+        return () => {
+            clearTimeout(timer);
+        };
+    }, [currentContent]);
+
     const handleMouseDown = (e) => {
         setDragging(true);
         setStartPos({
@@ -53,35 +65,17 @@ function Modal({ onClose, selectedMonth, activeModal, onMonthSelect }) {
         e.stopPropagation();
     };
 
-    const handleJoinGame = (nickname) => {
-        setNickname(nickname);
-        setCurrentContent('rooms');
-    };
-
-    const handleJoinRoom = (room) => {
-        setCurrentContent('game');
-    };
-
-    const handleCreateRoom = () => {
-        setCurrentContent('createRoom');
-    };
-
-    const handleRoomCreated = (room) => {
-        setRooms([...rooms, room]);
-        setCurrentContent('rooms');
-    };
-
-    const handleBack = () => {
-        if (currentContent === 'rooms') {
-            setCurrentContent('Game');
-        } else if (currentContent === 'createRoom') {
-            setCurrentContent('rooms');
-        } else if (currentContent === 'game') {
-            setCurrentContent('rooms');
-        }
-    };
-
     const renderContent = () => {
+        if (loading) {
+            return (
+                <div className="loading-container">
+                    {loadingGifs.map((gif, index) => (
+                        <img key={index} src={gif.src} alt="Loading..." className={`loading-gif ${gif.className}`} />
+                    ))}
+                </div>
+            );
+        }
+
         switch (currentContent) {
             case 'Launcher':
             case 'file':
@@ -90,13 +84,7 @@ function Modal({ onClose, selectedMonth, activeModal, onMonthSelect }) {
             case 'edit':
                 return <ChatContent />;
             case 'Game':
-                return <JoinGame onJoin={handleJoinGame} onBack={onClose} />;
-            case 'rooms':
-                return <GameRooms rooms={rooms} onJoinRoom={handleJoinRoom} onCreateRoom={handleCreateRoom} onBack={handleBack} />;
-            case 'createRoom':
-                return <CreateRoom onCreate={handleRoomCreated} onBack={handleBack} />;
-            case 'game':
-                return <GameContent />;
+                return <GameModal onClose={onClose} />;
             case 'view':
                 return <div>View Content</div>;
             case 'help':
@@ -115,8 +103,6 @@ function Modal({ onClose, selectedMonth, activeModal, onMonthSelect }) {
             case 'edit':
                 return 'Chat';
             case 'Game':
-            case 'rooms':
-            case 'createRoom':
                 return 'Game';
             default:
                 return 'Modal';

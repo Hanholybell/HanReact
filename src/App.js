@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import EntryPage from './EntryPage';
 import MainPage from './MainPage';
 
@@ -12,7 +12,5 @@ function App() {
     </Router>
   );
 }
-
-
 
 export default App;

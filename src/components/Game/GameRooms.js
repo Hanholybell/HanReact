@@ -1,21 +1,22 @@
-// GameRooms.js
 import React from 'react';
 import '../../css/GameRooms.css';
 
-function GameRooms({ rooms, onJoinRoom, onCreateRoom, onBack }) {
-  return (
-    <div className="game-rooms-container">
-      <ul>
-        {rooms.map((room, index) => (
-          <li key={index} onClick={() => onJoinRoom(room)}>
-            {room.name} ({room.players}/2)
-          </li>
-        ))}
-      </ul>
-      <button onClick={onCreateRoom}>방 만들기</button>
-      <button onClick={onBack}>뒤로가기</button>
-    </div>
-  );
-}
+const GameRooms = ({ onRoomSelect, onCreateRoom }) => {
+    const rooms = ['방1', '방2', '방3', '방4'];
+
+    return (
+        <div className="rooms-container">
+            <h2>방 목록</h2>
+            <ul>
+                {rooms.map((room) => (
+                    <li key={room}>
+                        {room} <button onClick={() => onRoomSelect(room)}>입장</button>
+                    </li>
+                ))}
+            </ul>
+            <button onClick={onCreateRoom}>방 만들기</button>
+        </div>
+    );
+};
 
 export default GameRooms;

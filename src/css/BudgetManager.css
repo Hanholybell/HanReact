@@ -228,6 +228,8 @@
 .budget-manager__chart, .budget-manager__bar-chart {
     flex: 1;
     margin: 0 20px;
+    max-height: 300px; /* 그래프의 최대 높이 설정 */
+    max-width: 500px; /* 그래프의 최대 너비 설정 */
 }
 
 .budget-manager__bar-chart canvas {
