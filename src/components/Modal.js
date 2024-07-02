@@ -84,6 +84,7 @@ function Modal({ onClose, selectedMonth, activeModal, onMonthSelect }) {
             case 'edit':
                 return <ChatContent />;
             case 'Game':
+            case 'view':
                 return <GameModal onClose={onClose} />;
             case 'view':
                 return <div>View Content</div>;

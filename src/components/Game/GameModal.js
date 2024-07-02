@@ -9,6 +9,7 @@ const GameModal = ({ onClose }) => {
     const [nickname, setNickname] = useState('');
     const [currentView, setCurrentView] = useState('login');
     const [selectedRoom, setSelectedRoom] = useState(null);
+    const [rooms, setRooms] = useState([]);
 
     const handleLogin = (nickname) => {
         setNickname(nickname);
@@ -28,12 +29,16 @@ const GameModal = ({ onClose }) => {
         setCurrentView('createRoom');
     };
 
+    const addRoom = (newRoom) => {
+        setRooms([...rooms, newRoom]);
+    };
+
     return (
         <div className="game-modal-content">
             {currentView === 'login' && <Login onLogin={handleLogin} />}
-            {currentView === 'rooms' && <GameRooms onRoomSelect={handleRoomSelect} onCreateRoom={handleCreateRoom} />}
-            {currentView === 'createRoom' && <CreateRoom onBack={handleBackToRooms} />}
-            {currentView === 'game' && <GameBoard room={selectedRoom} onBack={handleBackToRooms} />}
+            {currentView === 'rooms' && <GameRooms rooms={rooms} onRoomSelect={handleRoomSelect} onCreateRoom={handleCreateRoom} />}
+            {currentView === 'createRoom' && <CreateRoom onBack={handleBackToRooms} onCreate={addRoom} />}
+            {currentView === 'game' && <GameBoard room={selectedRoom} onBack={handleBackToRooms} nickname={nickname} />}
         </div>
     );
 };

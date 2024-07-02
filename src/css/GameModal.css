@@ -1,4 +1,8 @@
 .game-modal-content {
+    background-image: url('../assets/gamebackground.jpg');
+    background-size: cover;
+    width: 142vmin;
+    height: 67vmin;
     padding: 20px;
   }
   

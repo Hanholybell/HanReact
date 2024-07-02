@@ -20,8 +20,8 @@
 .window {
     position: absolute;
     min-width: 1170px;
-    min-height: 570px;
-    max-height: 570px;
+    min-height: 640px;
+    max-height: 580px;
     background-color: #c7c7c7;
     padding: 4px;
     border-left: 2px solid #FCFCFC;
@@ -343,7 +343,7 @@
     width: 350px;
     height: 80px;
     position: absolute;
-    bottom: 228px;
+    bottom: 297px;
 }
 
 .loading-gif-2 {

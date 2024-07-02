@@ -1,35 +1,125 @@
-.rooms-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .rooms-container ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .rooms-container li {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-    margin-bottom: 10px;
-    background-color: #f4f4f4;
-    width: 300px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
-  
-  .rooms-container button {
-    padding: 5px 10px;
-    border: none;
-    background-color: #007BFF;
-    color: white;
-    cursor: pointer;
-    border-radius: 4px;
-  }
-  
-  .rooms-container h2 {
-    margin-bottom: 20px;
-  }
-  
+.game-rooms-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  color: black;
+}
+
+.game-rooms-container h2 {
+  margin: 20px 0;
+  font-size: 2rem;
+}
+
+.game-rooms-container p {
+  margin: 20px 0;
+  font-size: 1.5rem;
+}
+
+.game-rooms-container ul {
+  list-style-type: none;
+  padding: 0;
+  width: 80%;
+}
+
+.game-room-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #0288d1;
+  padding: 15px 20px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  position: relative;
+}
+
+.game-room-item:hover {
+  background-color: #0277bd;
+}
+
+.room-name {
+  display: flex;
+  align-items: center;
+}
+
+.lock-icon {
+  margin-left: 5px; /* 제목과 겹치지 않도록 살짝 띄우기 */
+}
+
+.room-players {
+  width: 50px; /* 고정된 너비로 위치 고정 */
+  text-align: center;
+}
+
+.status {
+  flex-shrink: 0;
+  width: 60px; /* 고정된 너비로 위치 고정 */
+  text-align: center;
+}
+
+.game-room-item.waiting {
+  background-color: #0288d1;
+}
+
+.game-room-item.playing {
+  background-color: #757575;
+}
+
+.create-room-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.create-room-button:hover {
+  background-color: #0056b3;
+}
+
+/* Modal 스타일 */
+.password-modal {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  width: 335px;
+  margin: auto;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+}
+
+.password-overlay {
+  background-color: rgba(0, 0, 0, 0.75);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* 비밀번호 모달의 버튼 스타일 */
+.password-modal-button {
+  padding: 10px 20px;
+  margin: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.password-modal-button:hover {
+  background-color: #0056b3;
+}

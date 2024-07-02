@@ -252,6 +252,7 @@
 
 .budget-manager__item {
     display: flex;
+    width: 780px;
     align-items: center;
     margin-bottom: 10px;
     padding: 10px;

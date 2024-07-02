@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
 import '../../css/CreateRoom.css';
 
-const CreateRoom = ({ onBack }) => {
+const CreateRoom = ({ onBack, onCreate }) => {
     const [roomName, setRoomName] = useState('');
     const [password, setPassword] = useState('');
     const [isPrivate, setIsPrivate] = useState(false);
 
     const handleCreateRoom = () => {
         if (roomName) {
-            // 방 만들기 로직 추가
+            const newRoom = {
+                name: roomName,
+                password: isPrivate ? password : null,
+                players: 0,
+                status: '대기중'
+            };
+            onCreate(newRoom); // 방 생성 로직 호출
             alert(`방 "${roomName}" 생성됨`);
             onBack();
         }
