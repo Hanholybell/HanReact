@@ -10,7 +10,7 @@
   flex-direction: column;
   align-items: center;
   cursor: pointer;
-  margin-bottom: 20px; /* 아이콘 사이 간격 */
+  margin-bottom: 30px; /* 아이콘 사이 간격 */
 }
 
 .icon-image {

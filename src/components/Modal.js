@@ -3,6 +3,7 @@ import '../css/Modal.css';
 import BudgetManager from './Budget/BudgetManager';
 import ChatContent from './Chat/ChatModal';
 import GameModal from './Game/GameModal';
+import TimerModal from './Timer/TimerModal';
 import loadingGif1 from '../assets/loading1.gif';
 import loadingGif2 from '../assets/loading2.gif';
 import loadingGif3 from '../assets/loading3.gif';
@@ -49,7 +50,7 @@ function Modal({ onClose, selectedMonth, activeModal, onMonthSelect }) {
         setLoading(true);
         const timer = setTimeout(() => {
             setLoading(false);
-        }, 1600);
+        }, 1300);
 
         return () => {
             clearTimeout(timer);
@@ -86,10 +87,9 @@ function Modal({ onClose, selectedMonth, activeModal, onMonthSelect }) {
             case 'Game':
             case 'view':
                 return <GameModal onClose={onClose} />;
-            case 'view':
-                return <div>View Content</div>;
-            case 'help':
-                return <div>Help Content</div>;
+            case 'Timer':
+            case 'help':    
+                return <TimerModal onClose={onClose} />; // onClose prop 추가
             default:
                 return <div>File Content</div>;
         }
@@ -102,7 +102,7 @@ function Modal({ onClose, selectedMonth, activeModal, onMonthSelect }) {
                 return 'Budget Manager';
             case 'Chat':
             case 'edit':
-                return 'Chat';
+                return 'GoalList';
             case 'Game':
                 return 'Game';
             default:

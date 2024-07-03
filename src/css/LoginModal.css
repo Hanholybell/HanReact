@@ -1,4 +1,11 @@
-.modal-backdrop {
+@font-face {
+  font-family: 'NeoDunggeunmo';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.3/NeoDunggeunmo.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.new-modal-backdrop {
   position: fixed;
   top: 0;
   left: 0;
@@ -7,103 +14,122 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
-.window {
+.new-window {
   position: absolute;
-  width: 500px;
+  width: 300px;
   background-color: #c7c7c7;
   padding: 4px;
-  border: 2px solid #2A2A2A;
+  border-left: 2px solid #FCFCFC;
+  border-top: 2px solid #FCFCFC;
+  border-right: 2px solid #2A2A2A;
+  border-bottom: 2px solid #2A2A2A;
   cursor: move;
-  display: flex;
-  flex-direction: column; /* Flexbox를 사용하여 창의 자식 요소를 수직으로 정렬 */
+  z-index: 1001;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.modal-title-bar {
-  display: flex;
-  align-items: center;
-  background-color: #2b2bbd;
-  color: white;
+.new-modal-title-bar {
+  background-color: #000080;
   padding: 4px;
-}
-
-.title {
-  font-family: 'NeoDunggeunmo';
-  font-size: 17px;
-}
-
-.controls {
-  display: flex;
-}
-
-.control {
-  width: 20px;
-  height: 20px;
-  background-color: #c7c7c7;
-  margin-left: 2px;
-  cursor: pointer;
-}
-
-.control.minimize::before {
-  content: '-';
-  display: block;
-  text-align: center;
-}
-
-.control.maximize::before {
-  content: '□';
-  display: block;
-  text-align: center;
-}
-
-.control.close::before {
-  content: '×';
-  display: block;
-  text-align: center;
-}
-
-.content-container {
-  background-color: #c7c7c7;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1; /* 가능한 모든 공간을 차지하도록 설정 */
-  justify-content: space-between; /* 컨텐츠 사이에 공간을 균등하게 배치 */
-}
-
-.login-form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  flex-grow: 1; /* 로그인 폼이 가능한 모든 공간을 차지하도록 설정 */
-  justify-content: center; /* 중앙에 정렬 */
-}
-
-.form-group {
+  height: 22px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  color: white;
+  font-family: 'NeoDunggeunmo';
+  font-size: 12px;
 }
 
-.buttons {
+.new-title {
+  font-size: 14px;
+}
+
+.new-controls {
   display: flex;
-  justify-content: flex-end;
-  gap: 10px;
 }
 
-button {
-  padding: 5px 10px;
+.new-control {
+  width: 26px;
+  height: 22px;
+  background-color: #c7c7c7;
+  margin-left: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  background-color: #000080;
-  border: none;
 }
 
-button[type="button"] {
+.new-control:hover {
+  background-color: #bababa;
+}
+
+.new-control.close {
+  background-color: red;
+}
+
+.new-content-container {
+  padding: 20px;
+  text-align: center;
+  margin: 0 5px -12px -5px;
+}
+
+.new-content-container img {
+  width: 100%;
+}
+
+.new-login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.new-form-group {
+  width: 100%;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.new-form-group label {
+  font-size: 12px;
+}
+
+.new-form-group input {
+  width: 100%;
+  padding: 5px;
+  font-size: 12px;
+}
+
+.new-buttons {
+  display: flex;
+  justify-content: right;
+  width: 100%;
+  margin: 18px -10px 1px 2px;
+}
+
+.new-buttons button {
+  padding: 5px 10px;
+  width: 60px;
   background-color: #c7c7c7;
   color: black;
+  border: 2px solid #000;
+  cursor: pointer;
+  font-size: 12px;
+  box-shadow: inset -1px -1px 0 0 #000, inset 1px 1px 0 0 #FFF, 1px 1px 0 0 #000;
+  margin: 0 2px;
 }
 
-button[type="button"]:hover {
-  background-color: #bababa;
+.new-buttons button:hover {
+  background-color: #a0a0a0;
+}
+
+.new-buttons button.cancel {
+  background-color: #c7c7c7;
+}
+
+.new-buttons button.cancel:hover {
+  background-color: #a0a0a0;
 }

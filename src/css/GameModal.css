@@ -1,8 +1,16 @@
+@font-face {
+  font-family: 'NeoDunggeunmo';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.3/NeoDunggeunmo.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 .game-modal-content {
     background-image: url('../assets/gamebackground.jpg');
     background-size: cover;
-    width: 142vmin;
-    height: 67vmin;
+    width: 143vmin;
+    height: 67.5vmin;
     padding: 20px;
+    font-family: 'NeoDunggeunmo';
   }
   

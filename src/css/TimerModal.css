@@ -1,0 +1,177 @@
+@font-face {
+  font-family: 'NeoDunggeunmo';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.3/NeoDunggeunmo.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.timer-modal-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #f0f0f0;
+  border: 2px solid #000080;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'NeoDunggeunmo';
+}
+
+.started-background {
+  background-image: url('../assets/startImage.gif');
+  background-size: cover;
+  height: 531px;
+}
+
+.not-started-background {
+  background-image: url('../assets/loadingImage.gif');
+  background-size: cover;
+  height: 531px;
+}
+
+.timer-display {
+  font-size: 4em;
+  margin: 20px 0;
+}
+
+.timer-button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.timer-button {
+  padding: 10px 20px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 1em;
+  margin: 10px 0;
+}
+
+.timer-button:hover {
+  background-color: #0056b3;
+}
+
+.timer-button.reset {
+  background-color: #ccc;
+  color: black;
+}
+
+.timer-button.reset:hover {
+  background-color: #999;
+}
+
+.timer-end-image {
+  width: 100%;
+  height: auto;
+}
+
+.custom-time-container {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.time-input {
+  width: 50px;
+  padding: 5px;
+  margin: 0 5px;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.timer-gif1 {
+  width: 200px;
+  position: absolute;
+  bottom: 22px;
+  left: 27px;
+}
+
+.timer-gif2 {
+  width: 250px;
+  position: absolute;
+  bottom: 208px;
+  left: 137px;
+  z-index: 1;
+}
+
+.timer-gif3 {
+  width: 200px;
+  position: absolute;
+  bottom: 22px;
+  left: 227px;
+}
+
+.timer-gif4 {
+  width: 236px;
+  position: absolute;
+  bottom: 18px;
+  right: 33px;
+}
+
+.running-timer-image {
+  width: 100px;
+  margin: 20px 0;
+}
+
+.not-running-timer-image {
+  width: 100px;
+  margin: 20px 0;
+}
+
+.warning-image {
+  width: 100px;
+  margin: 20px;
+}
+
+.red-text {
+  color: red;
+}
+
+.end-time-display {
+  font-size: 1.5em;
+  margin: 10px 0;
+}
+
+.warning-image1{
+  width: 100px;
+  position: absolute;
+  left: 325px;
+  top: 145px;
+}
+
+.warning-image2{
+  width: 100px;
+  position: absolute;
+  right: 346px;
+  top: 115px;
+}
+
+.warning-image3{
+  width: 61px;
+    position: absolute;
+    left: 432px;
+    top: 120px;
+
+}
+
+.timer-end-image{
+  width: 500px;
+}
+
+.not-running-timer-image{
+  position: absolute;
+}
+
+.notimergif1{
+  position: absolute;
+  width: 100px;
+  bottom: 3px;
+  left: 90px;
+}

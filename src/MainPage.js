@@ -7,7 +7,6 @@ import bfR from './assets/bfR.gif';
 import CatGif from './assets/catcat.gif';
 import pixel from './assets/pixel.gif';
 import pixel1 from './assets/pixel1.gif';
-import pixel2 from './assets/pixel2.gif';
 import pixel3 from './assets/pixel3.gif';
 import pixel4 from './assets/pixel4.gif';
 import pixel5 from './assets/pixel5.gif';
@@ -20,6 +19,7 @@ import Icon from './components/Icon';
 import launcherIcon from './assets/icon.jpg'; // 실제 아이콘 이미지 경로
 import ChatIcon from './assets/chaticon.jpg'; // 실제 아이콘 이미지 경로
 import GameIcon from './assets/gameicon.jpg';
+import TimerIcon from './assets/timericon.png'
 import Modal from './components/Modal';
 
 function MainPage() {
@@ -42,7 +42,6 @@ function MainPage() {
 
     return (
         <div className="main-container">
-            <TitleBar />
             <main className='content'>
                 <Routes>
                     <Route path="/HomePage" element={<HomePage />} />
@@ -51,6 +50,7 @@ function MainPage() {
                     <Icon iconImage={launcherIcon} text="Launcher" onClick={() => openModal('Launcher')} />
                     <Icon iconImage={ChatIcon} text="Chat" onClick={() => openModal('Chat')} />
                     <Icon iconImage={GameIcon} text="Game" onClick={() => openModal('Game')} />
+                    <Icon iconImage={TimerIcon} text="Timer" onClick={() => openModal('Timer')} />
                 </div>
                 {activeModal && (
                     <Modal
@@ -63,17 +63,13 @@ function MainPage() {
             </main>
             <footer className='footer'>
                 <img src={MainGif} alt="Loading" className="main-racungif" />
-                <img src={CatGif} alt="Loading" className="main-catgif" />
-                <img src={pixel} alt="Loading" className="main-pixelgif" />
-                <img src={pixel1} alt="Loading" className="main-pixel1gif" />
-                <img src={pixel2} alt="Loading" className="main-pixel2gif" />
                 <img src={pixel3} alt="Loading" className="main-pixel3gif" />
                 <img src={pixel4} alt="Loading" className="main-pixel4gif" />
                 <img src={pixel5} alt="Loading" className="main-pixel5gif" />
                 <img src={pixel7} alt="Loading" className="main-pixel7gif" />
                 <img src={pixel8} alt="Loading" className="main-pixel8gif" />
-                <img src={pixel9} alt="Loading" className="main-pixel9gif" />
             </footer>
+            <TitleBar />
         </div>
     );
 }

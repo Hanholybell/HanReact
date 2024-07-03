@@ -5,6 +5,7 @@ import MyAcountModal from './Dropdown/MyAcountModal';
 import MusicModal from './Dropdown/MusicModal';
 import MyFavoriteModal from './Dropdown/MyFavoriteModal';
 import LoginModal from './Login/LoginModal';
+import startIcon from '../assets/mainStart.png'; // 경로를 맞춰서 수정
 
 function TitleBar() {
   const navigate = useNavigate();
@@ -14,7 +15,9 @@ function TitleBar() {
   const [isMyAcountModalOpen, setIsMyAcountModalOpen] = useState(false);
   const [isMusicModalOpen, setIsMusicModalOpen] = useState(false);
   const [isMyFavoriteModalOpen, setIsMyFavoriteModalOpen] = useState(false);
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false); 
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loggedInUser, setLoggedInUser] = useState(''); 
 
   useEffect(() => {
     const updateTime = () => {
@@ -24,9 +27,9 @@ function TitleBar() {
     };
 
     updateTime();
-    const intervalId = setInterval(updateTime, 60000); // 1분마다 시간 업데이트
+    const intervalId = setInterval(updateTime, 60000);
 
-    return () => clearInterval(intervalId); // 컴포넌트 언마운트 시 인터벌 정리
+    return () => clearInterval(intervalId);
   }, []);
 
   const toggleMenu = () => {
@@ -38,31 +41,57 @@ function TitleBar() {
     setIsMenuOpen(false);
   };
 
+  const handleLoginSuccess = (username) => {
+    setIsLoggedIn(true);
+    setLoggedInUser(username);
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setLoggedInUser('');
+  };
+
   return (
-    <div className="title-bar">
-      <button className="menu-button" onClick={toggleMenu}>
-        Sign in for a good time
-      </button>
-      <button className="login-button" onClick={() => setIsLoginModalOpen(true)}>Login</button>
-      <div className="window-controls">
-        <div className="button" onClick={() => navigate(-1)}><span></span></div> {/* 최소화 */}
-        <div className="button"><span></span></div> {/* 최대화 */}
-        <div className="button"><span></span></div> {/* 닫기 */}
-        <span className="time-date">{time} | {date}</span>
+    <div className="win98-title-bar">
+      <div className="win98-start-button" onClick={toggleMenu}>
+        <img src={startIcon} alt="Start" className="main-start" />
+      </div>
+      {isLoggedIn && (
+        <>
+          <span className="win98-welcome-message">Welcome, {loggedInUser}</span>
+          <button className="win98-logout-button" onClick={handleLogout}>Logout</button>
+        </>
+      )}
+      <div className="win98-window-controls">
+        <span className="win98-time-date">{time} | {date}</span>
       </div>
       {isMenuOpen && (
-        <div className="dropdown-menu">
-          <div className="dropdown-item" onClick={() => handleMenuItemClick(() => setIsMyAcountModalOpen(true))}>MyAcount</div>
-          <div className="dropdown-item" onClick={() => handleMenuItemClick(() => setIsMusicModalOpen(true))}>Music</div>
-          <div className="dropdown-item" onClick={() => handleMenuItemClick(() => setIsMyFavoriteModalOpen(true))}>MyFavorite</div>
+        <div className="win98-dropdown-menu">
+          <div className="win98-dropdown-item" onClick={() => handleMenuItemClick(() => setIsMyAcountModalOpen(true))}>
+            <img src="../assets/myAcountIcon.png" alt="MyAcount" />
+            MyAcount
+          </div>
+          <div className="win98-dropdown-item" onClick={() => handleMenuItemClick(() => setIsMusicModalOpen(true))}>
+            <img src="../assets/musicIcon.png" alt="Music" />
+            Music
+          </div>
+          <div className="win98-dropdown-item" onClick={() => handleMenuItemClick(() => setIsMyFavoriteModalOpen(true))}>
+            <img src="../assets/myFavoriteIcon.png" alt="MyFavorite" />
+            MyFavorite
+          </div>
+          {!isLoggedIn && (
+            <div className="win98-dropdown-item" onClick={() => setIsLoginModalOpen(true)}>
+              <img src="../assets/loginIcon.png" alt="Login" />
+              Login
+            </div>
+          )}
         </div>
       )}
       {isMyAcountModalOpen && <MyAcountModal onClose={() => setIsMyAcountModalOpen(false)} />}
       {isMusicModalOpen && <MusicModal onClose={() => setIsMusicModalOpen(false)} />}
       {isMyFavoriteModalOpen && <MyFavoriteModal onClose={() => setIsMyFavoriteModalOpen(false)} />}
-      {isLoginModalOpen && <LoginModal onClose={() => setIsLoginModalOpen(false)} />}
+      {isLoginModalOpen && <LoginModal onClose={() => setIsLoginModalOpen(false)} onLoginSuccess={handleLoginSuccess} />}
     </div>
-    
   );
 }
 

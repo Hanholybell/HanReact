@@ -1,16 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import '../../css/LoginModal.css';
+import logo from '../../assets/loginlogo.png'; // 로고 이미지 경로 설정
 
-function LoginModal({ onClose }) {
+function LoginModal({ onClose, onLoginSuccess }) {
   const [dragging, setDragging] = useState(false);
-  const [pos, setPos] = useState({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
+  const [offset, setOffset] = useState({ x: 0, y: 0 });
+  const [pos, setPos] = useState({ x: window.innerWidth / 2 - 150, y: window.innerHeight / 2 - 100 });
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
+  // 모달이 열릴 때 화면 중앙에 위치하도록 설정
+  useEffect(() => {
+    setPos({
+      x: window.innerWidth / 2 - 150,
+      y: window.innerHeight / 2 - 100
+    });
+  }, []);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
       if (dragging) {
         setPos({
-          x: Math.min(window.innerWidth - 400, Math.max(0, e.clientX - 400)),
-          y: Math.min(window.innerHeight - 110, Math.max(0, e.clientY - 15))
+          x: e.clientX - offset.x,
+          y: e.clientY - offset.y
         });
       }
     };
@@ -26,41 +39,65 @@ function LoginModal({ onClose }) {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseup', handleMouseUp);
     };
-  }, [dragging]);
+  }, [dragging, offset]);
+
+  const handleMouseDown = (e) => {
+    setDragging(true);
+    setOffset({
+      x: e.clientX - pos.x,
+      y: e.clientY - pos.y
+    });
+  };
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    if (username === 'hst15' && password === '123123') {
+      setError('');
+      onLoginSuccess(username);
+      onClose();
+    } else {
+      setError('Invalid username or password');
+    }
+  };
 
   return (
-    <div className="modal-backdrop">
+    <div className="new-modal-backdrop">
       <div
-        className="window"
+        className="new-window"
         style={{ left: `${pos.x}px`, top: `${pos.y}px` }}
-        onMouseDown={(e) => {
-          setDragging(true);
-          e.stopPropagation();
-        }}
+        onMouseDown={handleMouseDown}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="modal-title-bar">
-          <div className="title">네트워크 암호 입력</div>
-          <div className="controls">
-            <div className="control minimize"></div>
-            <div className="control maximize"></div>
-            <div className="control close" onClick={onClose}></div>
-          </div>
+        <div className="new-modal-title-bar">
+          <div className="new-title">Enter Password</div>
         </div>
-        <div className="content-container">
-          <p>Microsoft 네트워크에 로그인하려면 암호를 입력하십시오.</p>
-          <form className="login-form">
-            <div className="form-group">
-              <label htmlFor="username">사용자 이름(U):</label>
-              <input type="text" id="username" value="dyurwitcherry" readOnly />
+        <div className="new-content-container">
+          <img src={logo} alt="Windows Logo" />
+          {error && <p style={{ color: 'red' }}>{error}</p>}
+          <form className="new-login-form" onSubmit={handleLogin}>
+            <div className="new-form-group">
+              <label htmlFor="username">User Name:</label>
+              <input 
+                type="text" 
+                id="username" 
+                value={username} 
+                onChange={(e) => setUsername(e.target.value)} 
+                required 
+              />
             </div>
-            <div className="form-group">
-              <label htmlFor="password">암호(P):</label>
-              <input type="password" id="password" />
+            <div className="new-form-group">
+              <label htmlFor="password">Password:</label>
+              <input 
+                type="password" 
+                id="password" 
+                value={password} 
+                onChange={(e) => setPassword(e.target.value)} 
+                required 
+              />
             </div>
-            <div className="buttons">
-              <button type="submit">확인</button>
-              <button type="button" onClick={onClose}>취소</button>
+            <div className="new-buttons">
+              <button type="submit">OK</button>
+              <button type="button" className="cancel" onClick={onClose}>Cancel</button>
             </div>
           </form>
         </div>
