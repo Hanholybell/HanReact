@@ -1,15 +1,54 @@
 import React, { useState, useEffect } from 'react';
+import io from 'socket.io-client';
 import '../../css/GameBoard.css';
-import blackPlayerImage from '../../assets/blackPlayer.gif'; // 흑돌 플레이어 이미지
-import whitePlayerImage from '../../assets/whitePlayer.png'; // 백돌 플레이어 이미지
+import blackPlayerImage from '../../assets/blackPlayer.gif';
+import whitePlayerImage from '../../assets/whitePlayer.png';
 import boardpixel1 from '../../assets/boardpixel1.gif';
 import boardpixel2 from '../../assets/boardpixel2.gif';
+
+const socket = io('http://localhost:3001');
 
 const GameBoard = ({ room, onBack, nickname }) => {
     const [board, setBoard] = useState(Array(19).fill().map(() => Array(19).fill(null)));
     const [turn, setTurn] = useState('black');
     const [messages, setMessages] = useState([]);
     const [inputMessage, setInputMessage] = useState('');
+
+    useEffect(() => {
+        socket.emit('joinRoom', room.name);
+
+        socket.on('roomCreated', () => {
+            setTurn('black');
+        });
+
+        socket.on('playerJoined', () => {
+            setTurn('white');
+        });
+
+        socket.on('opponentMove', (move) => {
+            const newBoard = [...board];
+            newBoard[move.x][move.y] = move.player;
+            setBoard(newBoard);
+            setTurn(move.player === 'black' ? 'white' : 'black');
+        });
+
+        socket.on('newMessage', (message) => {
+            setMessages((prevMessages) => [...prevMessages, message]);
+        });
+
+        socket.on('playerLeft', () => {
+            alert('The opponent has left the game.');
+            onBack();
+        });
+
+        return () => {
+            socket.off('roomCreated');
+            socket.off('playerJoined');
+            socket.off('opponentMove');
+            socket.off('newMessage');
+            socket.off('playerLeft');
+        };
+    }, [board, room, onBack]);
 
     const handleCellClick = (row, col) => {
         if (board[row][col] !== null) return;
@@ -29,6 +68,7 @@ const GameBoard = ({ room, onBack, nickname }) => {
         setBoard(newBoard);
         setTurn(turn === 'black' ? 'white' : 'black');
         checkWin(newBoard);
+        socket.emit('move', { roomName: room.name, move: { x: row, y: col, player: turn } });
     };
 
     const checkWin = (board) => {
@@ -74,7 +114,9 @@ const GameBoard = ({ room, onBack, nickname }) => {
 
     const handleSendMessage = () => {
         if (inputMessage.trim()) {
-            setMessages([...messages, { nickname, text: inputMessage }]);
+            const message = { nickname, text: inputMessage };
+            setMessages([...messages, message]);
+            socket.emit('sendMessage', { roomName: room.name, message });
             setInputMessage('');
         }
     };
@@ -118,7 +160,7 @@ const GameBoard = ({ room, onBack, nickname }) => {
                     ))}
                 </div>
                 <div className="chat-container">
-                <img src={boardpixel2} alt="board pixel" className="board-pixel2" />
+                    <img src={boardpixel2} alt="board pixel" className="board-pixel2" />
                     <div className="chat">
                         <div className="messages">
                             {messages.map((msg, index) => (

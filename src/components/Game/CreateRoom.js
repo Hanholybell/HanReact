@@ -14,7 +14,7 @@ const CreateRoom = ({ onBack, onCreate }) => {
                 players: 0,
                 status: '대기중'
             };
-            onCreate(newRoom); // 방 생성 로직 호출
+            onCreate(newRoom);
             alert(`방 "${roomName}" 생성됨`);
             onBack();
         }
