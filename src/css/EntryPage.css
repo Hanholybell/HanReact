@@ -40,40 +40,40 @@
 
   .ent-img3{
     position: absolute;
-    margin: 350px -1278px 0 31px;
+    margin: 263px -1285px 0 31px;
     width: 200px;
   }
   .ent-img2{
     position: absolute;
-    margin: 618px -1188px 0 31px;
-    width: 300px;
+    margin: 605px -985px 0 277px;
+    width: 370px;
   }
 
   .ent-gif {
     width: 380px;
     position: absolute;
-    margin: -400px 0 79px 428px;
+    margin: -486px 0 79px 544px;
 }
 
  .ent-mirrorball{
   position: absolute;
   width: 250px;
   margin-right: 700px;
-  margin-bottom: 590px;
+  margin-bottom: 623px;
  }
 
  .ent-dancer{
   position: absolute;
   width: 250px;
   margin-right: 1000px;
-  margin-top: 460px;
+  margin-top: 461px;
  }
 
  .ent-dancer2{
   position: absolute;
   width: 230px;
   margin-right: 392px;
-  margin-top: 505px;
+  margin-top: 530px;
  }
 
  .ent-light1{
@@ -85,8 +85,8 @@
 
  .ent-light2{
   position: absolute;
-  margin-right: 1361px;
-  margin-top: 530px;
+  margin-right: 1439px;
+  margin-top: 560px;
   width: 170px;
  }
 

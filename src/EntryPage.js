@@ -29,7 +29,6 @@ function EntryPage() {
         <img src={light1} alt="Loading" className="ent-light1" />
         <img src={light2} alt="Loading" className="ent-light2" />
         <img src={light3} alt="Loading" className="ent-light3" />
-        <img src={entgif} alt="Loading" className="ent-gif1" />
         <img src={entgif1} alt="Loading" className="ent-gif2" />
             <span id='entrybox'>
                 <button className = "entrybutton" onClick={() => navigate('/main')}>진입하기</button>
