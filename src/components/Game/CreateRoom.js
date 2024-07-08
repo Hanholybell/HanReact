@@ -1,20 +1,17 @@
 import React, { useState } from 'react';
 import '../../css/CreateRoom.css';
+import io from 'socket.io-client';
 
-const CreateRoom = ({ onBack, onCreate }) => {
+const socket = io('http://localhost:3001');
+
+const CreateRoom = ({ onBack }) => {
     const [roomName, setRoomName] = useState('');
     const [password, setPassword] = useState('');
     const [isPrivate, setIsPrivate] = useState(false);
 
     const handleCreateRoom = () => {
         if (roomName) {
-            const newRoom = {
-                name: roomName,
-                password: isPrivate ? password : null,
-                players: 0,
-                status: '대기중'
-            };
-            onCreate(newRoom);
+            socket.emit('createRoom', roomName, isPrivate ? password : null);
             alert(`방 "${roomName}" 생성됨`);
             onBack();
         }

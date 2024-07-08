@@ -29,8 +29,8 @@ const GameModal = ({ onClose }) => {
         setCurrentView('createRoom');
     };
 
-    const addRoom = (newRoom) => {
-        setRooms([...rooms, newRoom]);
+    const addRoom = (roomName, nickname) => {
+        setRooms([...rooms, { roomName, players: [nickname], status: '대기중' }]);
     };
 
     return (

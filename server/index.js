@@ -4,26 +4,39 @@ const socketIo = require('socket.io');
 
 const app = express();
 const server = http.createServer(app);
-const io = socketIo(server, {
-    cors: {
-        origin: "http://localhost:3000",
-        methods: ["GET", "POST"]
-    }
-});
+const io = socketIo(server);
 
 let rooms = {};
 
 io.on('connection', (socket) => {
     socket.on('createRoom', (roomName, createdBy) => {
-        rooms[roomName] = { createdBy, players: [] };
-        io.emit('roomList', rooms);
+        if (!rooms[roomName]) {
+            rooms[roomName] = { roomName, createdBy, players: [], status: '대기중' };
+            io.emit('roomList', Object.values(rooms));
+        }
     });
 
     socket.on('joinRoom', (roomName, nickname) => {
         if (rooms[roomName]) {
             rooms[roomName].players.push(nickname);
+            socket.join(roomName);
             io.to(roomName).emit('playerJoined', nickname);
-            io.emit('roomList', rooms);
+            io.emit('roomList', Object.values(rooms));
+        }
+    });
+
+    socket.on('move', (data) => {
+        io.to(data.roomName).emit('opponentMove', data.move);
+    });
+
+    socket.on('sendMessage', (data) => {
+        io.to(data.roomName).emit('newMessage', data.message);
+    });
+
+    socket.on('deleteRoom', (data) => {
+        if (rooms[data.roomName].createdBy === data.requestedBy) {
+            delete rooms[data.roomName];
+            io.emit('roomList', Object.values(rooms));
         }
     });
 
@@ -34,7 +47,7 @@ io.on('connection', (socket) => {
             if (rooms[roomName].players.length === 0) {
                 delete rooms[roomName];
             }
-            io.emit('roomList', rooms);
+            io.emit('roomList', Object.values(rooms));
         }
     });
 });
