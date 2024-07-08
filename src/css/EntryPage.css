@@ -40,12 +40,12 @@
 
   .ent-img3{
     position: absolute;
-    margin: 224px -1349px 0 31px;
+    margin: 220px -1300px 0 31px;
     width: 200px;
   }
   .ent-img2{
     position: absolute;
-    margin: 560px -1059px 0 277px;
+    margin: 561px -1059px 0 277px;
     width: 370px;
   }
 
@@ -58,15 +58,15 @@
  .ent-mirrorball{
   position: absolute;
   width: 250px;
-  margin-right: 700px;
-  margin-bottom: 555px;
+  margin-right: 850px;
+  margin-bottom: 595px;
  }
 
  .ent-dancer{
   position: absolute;
   width: 250px;
-  margin-right: 1000px;
-  margin-top: 418px;
+  margin-right: 1070px;
+  margin-top: 405px;
  }
 
  .ent-dancer2{
@@ -85,8 +85,8 @@
 
  .ent-light2{
   position: absolute;
-  margin-right: 1412px;
-  margin-top: 519px;
+  margin-right: 1450px;
+  margin-top: 515px;
   width: 170px;
  }
 

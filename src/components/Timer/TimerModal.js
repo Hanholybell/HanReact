@@ -7,7 +7,6 @@ import timergif2 from '../../assets/timergif2.gif';
 import timergif3 from '../../assets/timergif3.gif';
 import timergif4 from '../../assets/timergif4.gif';
 import runningImage from '../../assets/runningImage.gif'; // 타이머가 돌아갈 때 표시할 이미지
-import loadingImage from '../../assets/loadingImage.gif'; // 타이머가 작동하지 않을 때 표시할 이미지
 import warningImage1 from '../../assets/warningImage1.gif'; // 타이머 종료 2분 전에 표시할 이미지
 import warningImage2 from '../../assets/warningImage2.gif'; // 타이머 종료 2분 전에 표시할 이미지
 import warningImage3 from '../../assets/warningImage3.gif'; // 타이머 종료 2분 전에 표시할 이미지
@@ -72,21 +71,28 @@ const TimerModal = ({ onClose }) => {
     }
   }, [isStarted, timeLeft, endTime]);
 
-  const handleStartTimer = () => {
-    const currentTime = new Date();
-    const currentMinutes = currentTime.getMinutes();
-
+  const calculateEndTime = (startTime) => {
+    const currentMinutes = startTime.getMinutes();
     let endTime;
-    if (currentMinutes >= 0 && currentMinutes <= 14) {
-      endTime = new Date(currentTime.getTime() + 9 * 60 * 60 * 1000 + (15 - currentMinutes) * 60 * 1000);
+
+    if (currentMinutes % 15 === 0) {
+      endTime = new Date(startTime.getTime() + 9 * 60 * 60 * 1000);
+    } else if (currentMinutes > 0 && currentMinutes <= 14) {
+      endTime = new Date(startTime.getTime() + 9 * 60 * 60 * 1000 + (15 - currentMinutes) * 60 * 1000);
     } else if (currentMinutes >= 15 && currentMinutes <= 29) {
-      endTime = new Date(currentTime.getTime() + 9 * 60 * 60 * 1000 + (30 - currentMinutes) * 60 * 1000);
+      endTime = new Date(startTime.getTime() + 9 * 60 * 60 * 1000 + (30 - currentMinutes) * 60 * 1000);
     } else if (currentMinutes >= 30 && currentMinutes <= 44) {
-      endTime = new Date(currentTime.getTime() + 9 * 60 * 60 * 1000 + (45 - currentMinutes) * 60 * 1000);
+      endTime = new Date(startTime.getTime() + 9 * 60 * 60 * 1000 + (45 - currentMinutes) * 60 * 1000);
     } else {
-      endTime = new Date(currentTime.getTime() + 10 * 60 * 60 * 1000 - (currentMinutes - 45) * 60 * 1000);
+      endTime = new Date(startTime.getTime() + 9 * 60 * 60 * 1000 + (60 - currentMinutes) * 60 * 1000);
     }
 
+    return endTime;
+  };
+
+  const handleStartTimer = () => {
+    const currentTime = new Date();
+    const endTime = calculateEndTime(currentTime);
     setTimeLeft(endTime - currentTime);
     setEndTime(endTime);
     setIsStarted(true);
@@ -95,21 +101,7 @@ const TimerModal = ({ onClose }) => {
 
   const handleCustomStart = (customTime) => {
     const now = new Date();
-    const customDate = new Date(customTime);
-    const timeDifference = customDate - now;
-
-    let endTime;
-    const customMinutes = customDate.getMinutes();
-
-    if (customMinutes >= 0 && customMinutes <= 14) {
-      endTime = new Date(customDate.getTime() + 9 * 60 * 60 * 1000 + (15 - customMinutes) * 60 * 1000);
-    } else if (customMinutes >= 15 && customMinutes <= 29) {
-      endTime = new Date(customDate.getTime() + 9 * 60 * 60 * 1000 + (30 - customMinutes) * 60 * 1000);
-    } else if (customMinutes >= 30 && customMinutes <= 44) {
-      endTime = new Date(customDate.getTime() + 9 * 60 * 60 * 1000 + (45 - customMinutes) * 60 * 1000);
-    } else {
-      endTime = new Date(customDate.getTime() + 10 * 60 * 60 * 1000 - (customMinutes - 45) * 60 * 1000);
-    }
+    const endTime = calculateEndTime(customTime);
 
     setTimeLeft(endTime - now);
     setEndTime(endTime);

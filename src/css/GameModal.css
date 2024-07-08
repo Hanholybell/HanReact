@@ -8,8 +8,7 @@
 .game-modal-content {
     background-image: url('../assets/gamebackground.jpg');
     background-size: cover;
-    width: 146vmin;
-    height: 69vmin;
+    height: 533px;
     padding: 20px;
     font-family: 'NeoDunggeunmo';
   }

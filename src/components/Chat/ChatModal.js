@@ -15,7 +15,7 @@ const initialItems = [
     currentStatus: '본인 몸무게 아직 모름',
   },
   {
-    name: '거리콘',
+    name: '겨리쿤',
     gif: chatpixel2,
     goal: '5kg 감량',
     progress: 60,
