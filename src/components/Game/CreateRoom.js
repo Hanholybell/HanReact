@@ -2,18 +2,27 @@ import React, { useState } from 'react';
 import '../../css/CreateRoom.css';
 import io from 'socket.io-client';
 
-const socket = io('http://localhost:3001');
+const socket = io('http://localhost:3001'); // 서버 주소에 맞게 업데이트
 
-const CreateRoom = ({ onBack }) => {
+const CreateRoom = ({ onBack, onCreate }) => {
     const [roomName, setRoomName] = useState('');
     const [password, setPassword] = useState('');
     const [isPrivate, setIsPrivate] = useState(false);
 
     const handleCreateRoom = () => {
         if (roomName) {
-            socket.emit('createRoom', roomName, isPrivate ? password : null);
-            alert(`방 "${roomName}" 생성됨`);
-            onBack();
+            const newRoom = {
+                name: roomName,
+                password: isPrivate ? password : null,
+                players: 0,
+                status: '대기중'
+            };
+            socket.emit('createRoom', roomName, isPrivate ? password : null, (rooms) => {
+                onCreate(newRoom);
+                alert(`방 "${roomName}" 생성됨`);
+                onBack();
+                socket.emit('getRoomList'); // 방 목록을 갱신하기 위해 서버에 요청
+            });
         }
     };
 

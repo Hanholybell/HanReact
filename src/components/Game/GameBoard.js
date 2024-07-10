@@ -11,12 +11,16 @@ const GameBoard = ({ room, onBack, nickname }) => {
     const [turn, setTurn] = useState('black');
     const [messages, setMessages] = useState([]);
     const [inputMessage, setInputMessage] = useState('');
+    const [playerNames, setPlayerNames] = useState({ black: '', white: '' });
 
     useEffect(() => {
-        socket.emit('joinRoom', room.name);
+        if (!room || !room.name) return;
 
-        socket.on('playerJoined', (nickname) => {
-            setTurn('white');
+        socket.emit('joinRoom', { roomName: room.name, nickname });
+
+        socket.on('updatePlayers', (nicknames) => {
+            const whitePlayer = nicknames.find(nick => nick !== nickname);
+            setPlayerNames({ black: nickname, white: whitePlayer || '' });
         });
 
         socket.on('opponentMove', (move) => {
@@ -26,7 +30,7 @@ const GameBoard = ({ room, onBack, nickname }) => {
             setTurn(move.player === 'black' ? 'white' : 'black');
         });
 
-        socket.on('newMessage', (message) => {
+        socket.on('receiveMessage', (message) => {
             setMessages((prevMessages) => [...prevMessages, message]);
         });
 
@@ -35,16 +39,22 @@ const GameBoard = ({ room, onBack, nickname }) => {
             onBack();
         });
 
+        socket.on('roomDeleted', () => {
+            alert('The room has been deleted by the owner.');
+            onBack();
+        });
+
         return () => {
-            socket.off('playerJoined');
+            socket.off('updatePlayers');
             socket.off('opponentMove');
-            socket.off('newMessage');
+            socket.off('receiveMessage');
             socket.off('playerLeft');
+            socket.off('roomDeleted');
         };
-    }, [board, room, onBack]);
+    }, [room, board, nickname, onBack]);
 
     const handleCellClick = (row, col) => {
-        if (board[row][col] !== null) return;
+        if (!room || board[row][col] !== null) return;
 
         const newBoard = board.map((rowArray, rowIndex) => {
             if (rowIndex === row) {
@@ -64,23 +74,30 @@ const GameBoard = ({ room, onBack, nickname }) => {
     };
 
     const handleSendMessage = () => {
-        if (inputMessage.trim()) {
-            const message = { nickname, text: inputMessage };
-            setMessages([...messages, message]);
-            socket.emit('sendMessage', { roomName: room.name, message });
-            setInputMessage('');
-        }
+        if (!room || !room.name || inputMessage.trim() === '') return;
+
+        const message = { nickname, text: inputMessage };
+        setMessages([...messages, message]);
+        socket.emit('sendMessage', { roomName: room.name, message });
+        setInputMessage('');
+    };
+
+    const handleDeleteRoom = () => {
+        if (!room || !room.name) return;
+
+        socket.emit('deleteRoom', room.name);
+        onBack();
     };
 
     return (
         <div className="game-board-container">
             <div className="player-info">
                 <div className="player">
-                    {nickname} (흑)
+                    {playerNames.black} (흑)
                     <img src={blackPlayerImage} alt="Black Player" className="player-image" />
                 </div>
                 <div className="player">
-                    상대방 (백)
+                    {playerNames.white} (백)
                     <img src={whitePlayerImage} alt="White Player" className="player-image" />
                 </div>
             </div>
@@ -120,6 +137,9 @@ const GameBoard = ({ room, onBack, nickname }) => {
                             <button onClick={handleSendMessage}>전송</button>
                         </div>
                     </div>
+                    {room && room.owner === socket.id && (
+                        <button className="delete-room-button" onClick={handleDeleteRoom}>방 삭제</button>
+                    )}
                     <button className="back-button" onClick={onBack}>뒤로가기</button>
                 </div>
             </div>
