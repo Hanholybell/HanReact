@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import io from 'socket.io-client';
 import Login from './Login';
 import GameRooms from './GameRooms';
-import GameBoard from './GameBoard';
 import CreateRoom from './CreateRoom';
-import io from 'socket.io-client';
+import GameBoard from './GameBoard';
 import '../../css/GameModal.css';
 
 const socket = io('http://localhost:3001');
@@ -16,10 +16,8 @@ const GameModal = ({ onClose }) => {
 
     useEffect(() => {
         const handleRoomList = (updatedRooms) => {
-            if (JSON.stringify(rooms) !== JSON.stringify(updatedRooms)) {
-                setRooms(updatedRooms);
-                console.log('Updated rooms: ', updatedRooms);
-            }
+            setRooms(updatedRooms);
+            console.log('Updated rooms: ', updatedRooms);
         };
 
         socket.on('roomList', handleRoomList);
@@ -28,10 +26,11 @@ const GameModal = ({ onClose }) => {
         return () => {
             socket.off('roomList', handleRoomList);
         };
-    }, [rooms]);
+    }, []); // 빈 배열을 의존성 배열로 사용하여 처음 한 번만 실행되도록 함
 
     const handleLogin = (nickname) => {
         setNickname(nickname);
+        socket.emit('setNickname', nickname);  // 닉네임 설정
         setCurrentView('rooms');
     };
 

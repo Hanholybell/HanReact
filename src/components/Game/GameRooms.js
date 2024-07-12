@@ -16,7 +16,10 @@ const GameRooms = ({ onRoomSelect, nickname }) => {
 
     useEffect(() => {
         const handleRoomList = (updatedRooms) => {
-            setRooms(updatedRooms);
+            if (JSON.stringify(rooms) !== JSON.stringify(updatedRooms)) {
+                setRooms(updatedRooms);
+                console.log('Updated rooms:', updatedRooms);
+            }
         };
 
         socket.on('roomList', handleRoomList);
@@ -39,29 +42,29 @@ const GameRooms = ({ onRoomSelect, nickname }) => {
             socket.off('roomFull', handleRoomFull);
             socket.off('roomExists', handleRoomExists);
         };
-    }, []);
+    }, [rooms]);
 
     const handleRoomClick = (room) => {
         if (room.password) {
             setSelectedRoom(room);
             setIsOpen(true);
         } else {
-            socket.emit('joinRoom', { roomName: room.name, nickname }, (success, roomData) => {
+            socket.emit('joinRoom', { roomName: room.name, nickname, password: '' }, (success, roomData, message) => {
                 if (success) {
                     onRoomSelect(roomData);
                 } else {
-                    alert('비밀번호가 틀렸습니다.');
+                    alert(message || '비밀번호가 틀렸습니다.');
                 }
             });
         }
     };
 
     const handlePasswordSubmit = () => {
-        socket.emit('joinRoom', { roomName: selectedRoom.name, nickname }, (success, roomData) => {
+        socket.emit('joinRoom', { roomName: selectedRoom.name, nickname, password: passwordInput }, (success, roomData, message) => {
             if (success) {
                 onRoomSelect(roomData);
             } else {
-                alert('비밀번호가 틀렸습니다.');
+                alert(message || '비밀번호가 틀렸습니다.');
             }
             setPasswordInput('');
             setSelectedRoom(null);

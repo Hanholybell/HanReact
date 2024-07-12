@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import '../css/Modal.css';
 import BudgetManager from './Budget/BudgetManager';
-import ChatContent from './Chat/ChatModal';
+import GoalModal from './Goal/GoalModal';
 import GameModal from './Game/GameModal';
 import TimerModal from './Timer/TimerModal';
+import ChatComponent from './Chat/ChatComponet'; // ChatComponent 추가
 import loadingGif1 from '../assets/loading1.gif';
 import loadingGif2 from '../assets/loading2.gif';
 import loadingGif3 from '../assets/loading3.gif';
@@ -81,15 +82,17 @@ function Modal({ onClose, selectedMonth, activeModal, onMonthSelect }) {
             case 'Launcher':
             case 'file':
                 return <BudgetManager selectedMonth={selectedMonth} onMonthSelect={onMonthSelect} />;
-            case 'Chat':
+            case 'Goal':
             case 'edit':
-                return <ChatContent />;
+                return <GoalModal />;
             case 'Game':
             case 'view':
                 return <GameModal onClose={onClose} />;
             case 'Timer':
             case 'help':    
-                return <TimerModal onClose={onClose} />; // onClose prop 추가
+                return <TimerModal onClose={onClose} />;
+            case 'Chat': // 추가된 부분
+                return <ChatComponent />;
             default:
                 return <div>File Content</div>;
         }
@@ -100,11 +103,13 @@ function Modal({ onClose, selectedMonth, activeModal, onMonthSelect }) {
             case 'Launcher':
             case 'file':
                 return 'Budget Manager';
-            case 'Chat':
+            case 'Goal':
             case 'edit':
                 return 'GoalList';
             case 'Game':
                 return 'Game';
+            case 'Chat': // 추가된 부분
+                return 'Chat';
             default:
                 return 'Modal';
         }

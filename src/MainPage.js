@@ -16,16 +16,17 @@ import pixel8 from './assets/pixel8.gif';
 import pixel9 from './assets/pixel9.gif';
 import TitleBar from './components/TitleBar';
 import Icon from './components/Icon';
-import launcherIcon from './assets/icon.jpg'; // 실제 아이콘 이미지 경로
-import ChatIcon from './assets/chaticon.jpg'; // 실제 아이콘 이미지 경로
+import launcherIcon from './assets/icon.jpg';
+import ChatIcon from './assets/chaticon.jpg';
 import GameIcon from './assets/gameicon.jpg';
-import TimerIcon from './assets/timericon.png'
+import TimerIcon from './assets/timericon.png';
+import GoalIcon from './assets/goalicon.png';
 import Modal from './components/Modal';
 
 function MainPage() {
-    const [activeModal, setActiveModal] = useState(null); // 현재 활성화된 모달을 관리
-    const [selectedMonth, setSelectedMonth] = useState('2024-06'); // 선택된 월을 관리
-    const months = ['2024-05', '2024-06', '2024-07']; // 예시 데이터
+    const [activeModal, setActiveModal] = useState(null);
+    const [selectedMonth, setSelectedMonth] = useState('2024-06');
+    const months = ['2024-05', '2024-06', '2024-07'];
 
     const openModal = (modalType) => {
         setActiveModal(modalType);
@@ -48,9 +49,10 @@ function MainPage() {
                 </Routes>
                 <div className="icon-bar">
                     <Icon iconImage={launcherIcon} text="Launcher" onClick={() => openModal('Launcher')} />
-                    <Icon iconImage={ChatIcon} text="Chat" onClick={() => openModal('Chat')} />
+                    <Icon iconImage={GoalIcon} text="Goal" onClick={() => openModal('Goal')} />
                     <Icon iconImage={GameIcon} text="Game" onClick={() => openModal('Game')} />
                     <Icon iconImage={TimerIcon} text="Timer" onClick={() => openModal('Timer')} />
+                    <Icon iconImage={ChatIcon} text="Chat" onClick={() => openModal('Chat')} />
                 </div>
                 {activeModal && (
                     <Modal

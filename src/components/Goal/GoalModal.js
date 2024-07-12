@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../../css/ChatModal.css';
+import '../../css/GoalModal.css';
 import chatpixel1 from '../../assets/chatpixel1.gif';
 import chatpixel2 from '../../assets/chatpixel2.gif';
 import chatpixel3 from '../../assets/chatpixel3.gif';
@@ -44,7 +44,7 @@ const initialItems = [
   },
 ];
 
-function ChatModal() {
+function GoalModal() {
   const [items, setItems] = useState(() => {
     const savedItems = localStorage.getItem('characterItems');
     return savedItems ? JSON.parse(savedItems) : initialItems;
@@ -162,4 +162,4 @@ function ChatModal() {
   );
 }
 
-export default ChatModal;
+export default GoalModal;
