@@ -26,11 +26,11 @@ const GameModal = ({ onClose }) => {
         return () => {
             socket.off('roomList', handleRoomList);
         };
-    }, []); // 빈 배열을 의존성 배열로 사용하여 처음 한 번만 실행되도록 함
+    }, []);
 
     const handleLogin = (nickname) => {
         setNickname(nickname);
-        socket.emit('setNickname', nickname);  // 닉네임 설정
+        socket.emit('setNickname', nickname);
         setCurrentView('rooms');
     };
 
@@ -48,7 +48,14 @@ const GameModal = ({ onClose }) => {
     };
 
     const addRoom = (newRoom) => {
-        socket.emit('createRoom', newRoom.name, newRoom.password);
+        socket.emit('createRoom', newRoom.name, newRoom.password, (success, room) => {
+            if (success) {
+                setRooms((prevRooms) => [...prevRooms, room]);
+                setCurrentView('rooms');
+            } else {
+                alert('방 생성에 실패했습니다.');
+            }
+        });
     };
 
     return (

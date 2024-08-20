@@ -17,7 +17,7 @@ import pixel9 from './assets/pixel9.gif';
 import TitleBar from './components/TitleBar';
 import Icon from './components/Icon';
 import launcherIcon from './assets/icon.jpg';
-import ChatIcon from './assets/chaticon.jpg';
+import SaveIcon from './assets/saveicon.png';
 import GameIcon from './assets/gameicon.jpg';
 import TimerIcon from './assets/timericon.png';
 import GoalIcon from './assets/goalicon.png';
@@ -52,7 +52,7 @@ function MainPage() {
                     <Icon iconImage={GoalIcon} text="Goal" onClick={() => openModal('Goal')} />
                     <Icon iconImage={GameIcon} text="Game" onClick={() => openModal('Game')} />
                     <Icon iconImage={TimerIcon} text="Timer" onClick={() => openModal('Timer')} />
-                    <Icon iconImage={ChatIcon} text="Chat" onClick={() => openModal('Chat')} />
+                    <Icon iconImage={SaveIcon} text="Save" onClick={() => openModal('Save')} />
                 </div>
                 {activeModal && (
                     <Modal

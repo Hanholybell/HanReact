@@ -16,10 +16,8 @@ const GameRooms = ({ onRoomSelect, nickname }) => {
 
     useEffect(() => {
         const handleRoomList = (updatedRooms) => {
-            if (JSON.stringify(rooms) !== JSON.stringify(updatedRooms)) {
-                setRooms(updatedRooms);
-                console.log('Updated rooms:', updatedRooms);
-            }
+            setRooms(updatedRooms);
+            console.log('Updated rooms:', updatedRooms);
         };
 
         socket.on('roomList', handleRoomList);
@@ -42,7 +40,7 @@ const GameRooms = ({ onRoomSelect, nickname }) => {
             socket.off('roomFull', handleRoomFull);
             socket.off('roomExists', handleRoomExists);
         };
-    }, [rooms]);
+    }, []);
 
     const handleRoomClick = (room) => {
         if (room.password) {
@@ -105,7 +103,7 @@ const GameRooms = ({ onRoomSelect, nickname }) => {
                             onClick={() => handleRoomClick(room)}
                         >
                             <span className="room-name">{room.name} {room.password && <span role="img" aria-label="lock" className="lock-icon">🔒</span>}</span>
-                            <span className="room-players">({room.players})</span>
+                            <span className="room-players">({room.players.length})</span>
                             <span className="status">{room.status}</span>
                         </li>
                     ))}

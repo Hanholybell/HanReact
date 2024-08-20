@@ -85,14 +85,14 @@ const GameBoard = ({ room, onBack, nickname }) => {
 
         socket.on('updatePlayers', handleUpdatePlayers);
         socket.on('opponentMove', handleOpponentMove);
-        socket.on('receiveMessage', handleReceiveMessage);
+        socket.on('msg', handleReceiveMessage);
         socket.on('playerLeft', handlePlayerLeft);
         socket.on('roomDeleted', handleRoomDeleted);
 
         return () => {
             socket.off('updatePlayers', handleUpdatePlayers);
             socket.off('opponentMove', handleOpponentMove);
-            socket.off('receiveMessage', handleReceiveMessage);
+            socket.off('msg', handleReceiveMessage);
             socket.off('playerLeft', handlePlayerLeft);
             socket.off('roomDeleted', handleRoomDeleted);
         };
