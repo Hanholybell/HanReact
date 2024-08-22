@@ -1,84 +1,51 @@
+// server.js
 const express = require('express');
 const http = require('http');
+const { Server } = require('socket.io');  // socket.io를 Server로 변경
 const cors = require('cors');
-const socketIo = require('socket.io');
 
 const app = express();
-app.use(cors());
+app.use(cors());  // 모든 요청에 대해 CORS 허용
 
 const server = http.createServer(app);
-const io = socketIo(server, {
-    cors: {
-        origin: "http://localhost:3000",
-        methods: ["GET", "POST"]
-    }
+const io = new Server(server, {  // socket.io 서버 초기화
+  cors: {
+    origin: 'http://localhost:3000',  // 클라이언트가 실행 중인 도메인
+    methods: ['GET', 'POST'],  // 허용할 메서드
+    allowedHeaders: ['Content-Type'],  // 허용할 헤더
+    credentials: true  // 자격 증명 허용
+  }
 });
 
-let rooms = {};
+let chatRooms = [];
 
 io.on('connection', (socket) => {
-    console.log('New client connected:', socket.id);
+  console.log('A user connected');
 
-    socket.on('createRoom', (data, callback) => {
-        const { roomName, createdBy, password } = data;
-        if (!rooms[roomName]) {
-            rooms[roomName] = { roomName, createdBy, password, players: [], status: '대기중' };
-            io.emit('roomList', Object.values(rooms));
-            if (typeof callback === 'function') callback(true, rooms[roomName]);
-        } else {
-            if (typeof callback === 'function') callback(false, null);
-        }
-    });
+  socket.on('joinRoom', ({ roomName }) => {
+    socket.join(roomName);
+    console.log(`${socket.id} joined room: ${roomName}`);
+  });
 
-    socket.on('joinRoom', (data, callback) => {
-        const { roomName, nickname, password } = data;
-        const room = rooms[roomName];
-        if (room) {
-            if (room.password && room.password !== password) {
-                if (typeof callback === 'function') callback(false, null, '비밀번호가 틀렸습니다.');
-            } else {
-                room.players.push(nickname);
-                socket.join(roomName);
-                io.to(roomName).emit('playerJoined', nickname);
-                io.emit('roomList', Object.values(rooms));
-                if (typeof callback === 'function') callback(true, room);
-            }
-        } else {
-            if (typeof callback === 'function') callback(false, null, '방이 존재하지 않습니다.');
-        }
-    });
+  socket.on('leaveRoom', ({ roomName }) => {
+    socket.leave(roomName);
+    console.log(`${socket.id} left room: ${roomName}`);
+  });
 
-    socket.on('sendMessage', ({ roomName, nickName, msg }) => {
-        console.log(`Message from ${nickName} in room ${roomName}: ${msg}`);
-        const message = { level: 'other', nickName, msg };
-        io.to(roomName).emit('msg', message);
-    });
+  socket.on('message', ({ roomName, message, user }) => {
+    io.to(roomName).emit('message', { user, message });
+  });
 
-    socket.on('move', ({ roomName, move }) => {
-        io.to(roomName).emit('opponentMove', move);
-    });
+  socket.on('createRoom', ({ roomName }) => {
+    chatRooms.push(roomName);
+    io.emit('updateRooms', chatRooms);
+  });
 
-    socket.on('deleteRoom', ({ roomName, requestedBy }) => {
-        if (rooms[roomName] && rooms[roomName].createdBy === requestedBy) {
-            delete rooms[roomName];
-            io.emit('roomList', Object.values(rooms));
-            io.to(roomName).emit('roomDeleted', { msg: "방이 삭제되었습니다." });
-        }
-    });
-
-    socket.on('disconnect', () => {
-        console.log('Client disconnected:', socket.id);
-        for (let roomName in rooms) {
-            const room = rooms[roomName];
-            room.players = room.players.filter(player => player !== socket.id);
-            if (room.players.length === 0) {
-                delete rooms[roomName];
-            }
-            io.emit('roomList', Object.values(rooms));
-        }
-    });
+  socket.on('disconnect', () => {
+    console.log('A user disconnected');
+  });
 });
 
 server.listen(3001, () => {
-    console.log('Listening on port 3001');
+  console.log('listening on *:3001');
 });

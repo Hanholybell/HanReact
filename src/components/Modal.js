@@ -5,6 +5,7 @@ import GoalModal from './Goal/GoalModal';
 import GameModal from './Game/GameModal';
 import TimerModal from './Timer/TimerModal';
 import Financial from './Financial/FinancialManager';
+import ChatModal from './Chat/ChatModal';
 import loadingGif1 from '../assets/loading1.gif';
 import loadingGif2 from '../assets/loading2.gif';
 import loadingGif3 from '../assets/loading3.gif';
@@ -91,8 +92,10 @@ function Modal({ onClose, selectedMonth, activeModal, onMonthSelect }) {
             case 'Timer':
             case 'help':    
                 return <TimerModal onClose={onClose} />;
-            case 'Save': // 추가된 부분
+            case 'Save': 
                 return <Financial />;
+            case 'Chat':
+                return <ChatModal onClose={onClose} />;
             default:
                 return <div>File Content</div>;
         }

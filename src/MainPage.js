@@ -22,6 +22,7 @@ import GameIcon from './assets/gameicon.jpg';
 import TimerIcon from './assets/timericon.png';
 import GoalIcon from './assets/goalicon.png';
 import Modal from './components/Modal';
+import chatIcon from './assets/chatIcon.png';
 
 function MainPage() {
     const [activeModal, setActiveModal] = useState(null);
@@ -53,6 +54,7 @@ function MainPage() {
                     <Icon iconImage={GameIcon} text="Game" onClick={() => openModal('Game')} />
                     <Icon iconImage={TimerIcon} text="Timer" onClick={() => openModal('Timer')} />
                     <Icon iconImage={SaveIcon} text="Save" onClick={() => openModal('Save')} />
+                    <Icon iconImage={chatIcon} text="Chat" onClick={() => openModal('Chat')} />
                 </div>
                 {activeModal && (
                     <Modal

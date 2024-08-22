@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../css/TitleBar.css';
-import MyAcountModal from './Dropdown/MyAcountModal';
+import MyAcountModal from '../components/StartMenu/MyAcountModal';
 import MusicModal from './Dropdown/MusicModal';
 import MyFavoriteModal from './Dropdown/MyFavoriteModal';
 import LoginModal from './Login/LoginModal';
-import startIcon from '../assets/mainStart.png'; // 경로를 맞춰서 수정
+import startIcon from '../assets/mainStart.png';
+import myAcountIcon from '../assets/myAcountIcon.png';
+import musicIcon from '../assets/musicIcon.png';
+import myFavoriteIcon from '../assets/myFavoriteIcon.png';
+import loginIcon from '../assets/loginIcon.png';
 
 function TitleBar() {
   const navigate = useNavigate();
@@ -68,20 +72,20 @@ function TitleBar() {
       {isMenuOpen && (
         <div className="win98-dropdown-menu">
           <div className="win98-dropdown-item" onClick={() => handleMenuItemClick(() => setIsMyAcountModalOpen(true))}>
-            <img src="../assets/myAcountIcon.png" alt="MyAcount" />
+            <img src={myAcountIcon} alt="MyAcount" />
             MyAcount
           </div>
           <div className="win98-dropdown-item" onClick={() => handleMenuItemClick(() => setIsMusicModalOpen(true))}>
-            <img src="../assets/musicIcon.png" alt="Music" />
+            <img src={musicIcon} alt="Music" />
             Music
           </div>
           <div className="win98-dropdown-item" onClick={() => handleMenuItemClick(() => setIsMyFavoriteModalOpen(true))}>
-            <img src="../assets/myFavoriteIcon.png" alt="MyFavorite" />
+            <img src={myFavoriteIcon} alt="MyFavorite" />
             MyFavorite
           </div>
           {!isLoggedIn && (
             <div className="win98-dropdown-item" onClick={() => setIsLoginModalOpen(true)}>
-              <img src="../assets/loginIcon.png" alt="Login" />
+              <img src={loginIcon} alt="Login" />
               Login
             </div>
           )}
