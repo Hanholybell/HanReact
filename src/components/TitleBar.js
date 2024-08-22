@@ -21,7 +21,7 @@ function TitleBar() {
   const [isMyFavoriteModalOpen, setIsMyFavoriteModalOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [loggedInUser, setLoggedInUser] = useState(''); 
+  const [loggedInNickname, setLoggedInNickname] = useState('');  // 닉네임 상태 추가
 
   useEffect(() => {
     const updateTime = () => {
@@ -45,14 +45,14 @@ function TitleBar() {
     setIsMenuOpen(false);
   };
 
-  const handleLoginSuccess = (username) => {
+  const handleLoginSuccess = (nickname) => {  // nickname으로 변경
     setIsLoggedIn(true);
-    setLoggedInUser(username);
+    setLoggedInNickname(nickname);  // 닉네임 저장
   };
 
   const handleLogout = () => {
     setIsLoggedIn(false);
-    setLoggedInUser('');
+    setLoggedInNickname('');  // 로그아웃 시 닉네임 초기화
   };
 
   return (
@@ -62,7 +62,7 @@ function TitleBar() {
       </div>
       {isLoggedIn && (
         <>
-          <span className="win98-welcome-message">Welcome, {loggedInUser}</span>
+          <span className="win98-welcome-message">Welcome, {loggedInNickname}</span> {/* 닉네임 표시 */}
           <button className="win98-logout-button" onClick={handleLogout}>Logout</button>
         </>
       )}

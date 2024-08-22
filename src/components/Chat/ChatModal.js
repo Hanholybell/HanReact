@@ -4,101 +4,126 @@ import '../../css/ChatModal.css';
 
 const socket = io('http://localhost:3001');
 
-function ChatModal({ onClose }) {
-  const [roomName, setRoomName] = useState('');
-  const [rooms, setRooms] = useState([]);
-  const [messages, setMessages] = useState([]);
-  const [currentRoom, setCurrentRoom] = useState('');
-  const [messageInput, setMessageInput] = useState('');
-  const [username, setUsername] = useState('');
+function ChatModal({ onClose, nickname }) {
+    const [view, setView] = useState('rooms');
+    const [rooms, setRooms] = useState([]);
+    const [selectedRoom, setSelectedRoom] = useState('');
+    const [message, setMessage] = useState('');
+    const [messages, setMessages] = useState([]);
 
-  useEffect(() => {
-    socket.on('message', (message) => {
-      setMessages((prevMessages) => [...prevMessages, message]);
-    });
+    useEffect(() => {
+        socket.emit('requestRooms'); // 서버에 방 목록 요청
+        socket.on('updateRooms', (updatedRooms) => {
+            setRooms(updatedRooms);
+        });
+        socket.on('initialRooms', (initialRooms) => {
+            setRooms(initialRooms);
+        });
 
-    socket.on('updateRooms', (rooms) => {
-      setRooms(rooms);
-    });
+        return () => {
+            socket.off('updateRooms');
+            socket.off('initialRooms');
+        };
+    }, []);
 
-    return () => {
-      socket.off('message');
-      socket.off('updateRooms');
+    useEffect(() => {
+        if (view === 'chat') {
+            socket.emit('joinRoom', { roomName: selectedRoom });
+
+            socket.on('message', (msg) => {
+                setMessages((prevMessages) => [...prevMessages, msg]);
+            });
+
+            return () => {
+                socket.emit('leaveRoom', { roomName: selectedRoom });
+                socket.off('message');
+            };
+        }
+    }, [view, selectedRoom]);
+
+    const createRoom = () => {
+        const newRoom = prompt('Enter room name:');
+        if (newRoom) {
+            socket.emit('createRoom', { roomName: newRoom });
+            setSelectedRoom(newRoom);
+            setView('chat');
+        }
     };
-  }, []);
 
-  const joinRoom = (roomName) => {
-    socket.emit('joinRoom', { roomName });
-    setCurrentRoom(roomName);
-  };
+    const joinRoom = (roomName) => {
+        setSelectedRoom(roomName);
+        setView('chat');
+    };
 
-  const leaveRoom = () => {
-    socket.emit('leaveRoom', { roomName: currentRoom });
-    setCurrentRoom('');
-    setMessages([]);
-  };
+    const leaveRoom = () => {
+        socket.emit('leaveRoom', { roomName: selectedRoom });
+        setMessages([]); // 메시지 초기화
+        setView('rooms');
+    };
 
-  const sendMessage = () => {
-    if (messageInput.trim() && currentRoom) {
-      socket.emit('message', { roomName: currentRoom, message: messageInput, user: username });
-      setMessageInput('');
-    }
-  };
+    const sendMessage = () => {
+        if (message) {
+            socket.emit('message', { roomName: selectedRoom, message, user: nickname });
+            setMessage('');
+        }
+    };
 
-  const createRoom = () => {
-    if (roomName.trim()) {
-      socket.emit('createRoom', { roomName });
-      setRoomName('');
-    }
-  };
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();  // 기본 엔터 키 동작(줄 바꿈) 방지
+            sendMessage();
+        }
+    };
 
-  return (
-    <div className="chat-modal-overlay">
-      <div className="chat-modal">
-        <div className="chat-modal-header">
-          <span>체팅</span>
-          <button onClick={onClose} className="chat-modal-close-btn">X</button>
-        </div>
-        <div className="chat-modal-content">
-          <div className="chat-rooms">
-            <h3>방목록</h3>
-            {rooms.map((room) => (
-              <button key={room} onClick={() => joinRoom(room)}>{room}</button>
-            ))}
-            <input
-              type="text"
-              value={roomName}
-              onChange={(e) => setRoomName(e.target.value)}
-              placeholder="New Room Name"
-            />
-            <button onClick={createRoom}>방만들기</button>
-          </div>
-          <div className="chat-room">
-            {currentRoom ? (
-              <>
-                <h3>Room: {currentRoom}</h3>
-                <div className="messages">
-                  {messages.map((msg, index) => (
-                    <p key={index}><strong>{msg.user}</strong>: {msg.message}</p>
-                  ))}
+    return (
+        <div className="chatmodal-container">
+            {view === 'rooms' ? (
+                <div className="chatrooms-container">
+                    <div className="chatrooms-header">Chat Rooms</div>
+                    <div className="chatrooms-room-list">
+                        <div className="chatrooms-room-list-header">Available Rooms:</div>
+                        {rooms.length === 0 ? (
+                            <div>No rooms available</div>
+                        ) : (
+                            rooms.map((roomName, index) => (
+                                <div
+                                    key={index}
+                                    className="chatrooms-room-item"
+                                    onClick={() => joinRoom(roomName)}
+                                >
+                                    {roomName}
+                                </div>
+                            ))
+                        )}
+                    </div>
+                    <button onClick={createRoom} className="chatrooms-create-room-button">Create Room</button>
                 </div>
-                <input
-                  type="text"
-                  value={messageInput}
-                  onChange={(e) => setMessageInput(e.target.value)}
-                  placeholder="Type a message"
-                />
-                <button onClick={sendMessage}>보내기</button>
-                <button onClick={leaveRoom}>방떠나기</button>
-              </>
             ) : (
-              <p>참가하실 방을 선택해주세요.</p>
+                <div className="chatmodal-container">
+                    <div className="chatmodal-header">{selectedRoom} - Chat Room</div>
+                    <div className="chatmodal-messages">
+                        {messages.map((msg, index) => (
+                            <div key={index} className="chatmodal-message-item">
+                                <strong>{msg.user}: </strong>{msg.message}
+                            </div>
+                        ))}
+                    </div>
+                    <div className="chatmodal-footer">
+                        <input
+                            type="text"
+                            placeholder="Message"
+                            value={message}
+                            onChange={(e) => setMessage(e.target.value)}
+                            onKeyPress={handleKeyPress}  // 엔터 키를 눌렀을 때 메시지 전송
+                        />
+                        <button onClick={sendMessage}>Send</button>
+                        <button onClick={leaveRoom}>Leave Room</button>
+                        <button onClick={onClose}>Close</button>
+                    </div>
+                </div>
             )}
-          </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 }
 
 export default ChatModal;
