@@ -1,4 +1,4 @@
-.chatmodal-backdrop {
+.chatlogin-modal-backdrop {
     position: fixed;
     top: 0;
     left: 0;
@@ -8,22 +8,20 @@
     justify-content: center;
     align-items: center;
     z-index: 1000;
-}
-
-.chatmodal-window {
+  }
+  
+  .chatlogin-window {
     position: absolute;
-    min-width: 410px;
-    min-height: 490px;
     background-color: #c7c7c7;
+    min-height: 450px;
     padding: 4px;
     border-left: 2px solid #FCFCFC;
     border-top: 2px solid #FCFCFC;
     border-right: 2px solid #2A2A2A;
     border-bottom: 2px solid #2A2A2A;
-    font-family: 'NeoDunggeunmo', sans-serif;
-}
-
-.chatmodal-title-bar {
+  }
+  
+  .chatlogin-modal-title-bar {
     background-color: #000080;
     padding: 4px;
     height: 22px;
@@ -31,16 +29,14 @@
     justify-content: space-between;
     align-items: center;
     color: white;
-    border-bottom: 2px solid #2A2A2A;
-}
-
-.chatmodal-title {
+  }
+  
+  .chatlogin-title {
     font-size: 14px;
     font-family: 'NeoDunggeunmo';
-    margin-left: 5px;
-}
-
-.chatmodal-close {
+  }
+  
+  .chatlogin-close {
     width: 22px;
     height: 22px;
     background-color: #c7c7c7;
@@ -50,100 +46,68 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    margin-right: 5px;
-}
-
-.chatmodal-close:hover {
+  }
+  
+  .chatlogin-close:hover {
     background-color: #bababa;
     border-left: 2px solid #2A2A2A;
     border-top: 2px solid #2A2A2A;
     border-right: 2px solid #FCFCFC;
     border-bottom: 2px solid #FCFCFC;
-}
-
-.chatmodal-close > .symbol {
+  }
+  
+  .chatlogin-close > .symbol {
     width: 12px;
     height: 2px;
     background-color: #000000;
     transform: rotate(45deg);
-}
-
-.chatmodal-close > .symbol::after {
+  }
+  
+  .chatlogin-close > .symbol::after {
     content: "";
     position: absolute;
     width: 12px;
     height: 2px;
     background-color: #000000;
     transform: rotate(90deg);
-}
-
-.chatmodal-content {
-    padding: 20px;
-    font-family: 'NeoDunggeunmo';
-    color: black;
-}
-
-.chatmodal-header {
-    font-size: 18px;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.chatmodal-messages {
+  }
+  
+  .chatlogin-content-container {
     padding: 10px;
-    height: 250px;
-    overflow-y: auto;
-    background-color: #ffffff;
-    border: 1px solid #2A2A2A;
-}
-
-.chatmodal-message-item {
-    margin-bottom: 10px;
-}
-
-.chatmodal-footer {
+    font-family: 'NeoDunggeunmo';
+    width: 330px;
+  }
+  
+  .chatlogin-form-group {
+    margin-bottom: 20px;
     display: flex;
-    align-items: center;
-    padding-top: 10px;
-}
-
-.chatmodal-footer input {
-    flex: 1;
+  }
+  
+  .chatlogin-form-group label {
+    margin-bottom: 5px;
+    display: block;
+    font-size: 14px;
+  }
+  
+  .chatlogin-form-group input {
     padding: 5px;
     font-family: 'NeoDunggeunmo';
-}
+  }
+  
+  .chatlogin-buttons {
+    display: flex;
 
-.chatmodal-footer button {
-    padding: 5px 10px;
-    margin-left: 10px;
-    background-color: #66ccff;
-    border: none;
-    cursor: pointer;
-    font-family: 'NeoDunggeunmo';
-}
-
-.chatrooms-room-list-header {
-    margin-bottom: 10px;
-    font-size: 16px;
-}
-
-.chatrooms-room-item {
-    padding: 10px;
-    border: 1px solid #2A2A2A;
-    margin-bottom: 5px;
-    background-color: #fff;
-    cursor: pointer;
-}
-
-.chatrooms-room-item:hover {
-    background-color: #e6e6e6;
-}
-
-.chatrooms-create-room-button {
-    margin-top: 10px;
+  }
+  
+  .chatlogin-buttons button {
     padding: 5px 10px;
     background-color: #66ccff;
     border: none;
     cursor: pointer;
     font-family: 'NeoDunggeunmo';
-}
+  }
+  
+  .chatlogin-buttons .cancel {
+    background-color: #ff6666;
+  }
+  

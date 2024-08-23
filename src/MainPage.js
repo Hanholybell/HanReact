@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import './css/MainPage.css';
 import MainGif from './assets/racun.gif';
@@ -21,13 +21,14 @@ import SaveIcon from './assets/saveicon.png';
 import GameIcon from './assets/gameicon.jpg';
 import TimerIcon from './assets/timericon.png';
 import GoalIcon from './assets/goalicon.png';
-import Modal from './components/Modal';
 import chatIcon from './assets/chatIcon.png';
+import Modal from './components/Modal';
+import ChatModal from './components/Chat/ChatModal';  // 새롭게 추가된 ChatModal import
 
 function MainPage() {
     const [activeModal, setActiveModal] = useState(null);
     const [selectedMonth, setSelectedMonth] = useState('2024-06');
-    const months = ['2024-05', '2024-06', '2024-07'];
+    const [isChatModalOpen, setIsChatModalOpen] = useState(false);  // ChatModal 상태 관리 추가
 
     const openModal = (modalType) => {
         setActiveModal(modalType);
@@ -42,6 +43,14 @@ function MainPage() {
         openModal('Launcher');
     };
 
+    const openChatModal = () => {
+        setIsChatModalOpen(true);  // ChatModal 열기
+    };
+
+    const closeChatModal = () => {
+        setIsChatModalOpen(false);  // ChatModal 닫기
+    };
+
     return (
         <div className="main-container">
             <main className='content'>
@@ -54,7 +63,7 @@ function MainPage() {
                     <Icon iconImage={GameIcon} text="Game" onClick={() => openModal('Game')} />
                     <Icon iconImage={TimerIcon} text="Timer" onClick={() => openModal('Timer')} />
                     <Icon iconImage={SaveIcon} text="Save" onClick={() => openModal('Save')} />
-                    <Icon iconImage={chatIcon} text="Chat" onClick={() => openModal('Chat')} />
+                    <Icon iconImage={chatIcon} text="Chat" onClick={openChatModal} />  {/* Chat Icon에 ChatModal 연결 */}
                 </div>
                 {activeModal && (
                     <Modal
@@ -62,6 +71,12 @@ function MainPage() {
                         selectedMonth={selectedMonth}
                         activeModal={activeModal}
                         onMonthSelect={handleMonthSelect}
+                    />
+                )}
+                {isChatModalOpen && (  // ChatModal을 보여주기 위한 조건문
+                    <ChatModal
+                        onClose={closeChatModal}
+                        nickname="YourNickname"  // 실제 로그인된 유저의 닉네임을 여기 전달해야 함
                     />
                 )}
             </main>
