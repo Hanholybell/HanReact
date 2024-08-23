@@ -1,6 +1,6 @@
 import { io } from 'socket.io-client';
 
-const server = io('https://hanreact.onrender.com', {
+const server = io('http://localhost:3001', {
   reconnection: true,
   reconnectionAttempts: Infinity,
   reconnectionDelay: 1000,
