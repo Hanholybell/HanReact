@@ -1,6 +1,6 @@
 import { io } from 'socket.io-client';
 
-const server = io('http://localhost:3001', {
+const server = io('https://myapp.onrender.com', {
   reconnection: true,
   reconnectionAttempts: Infinity,
   reconnectionDelay: 1000,
