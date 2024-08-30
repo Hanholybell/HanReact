@@ -14,8 +14,27 @@ function ChatModal({ onClose }) {
     const [messages, setMessages] = useState([]);
 
     const [dragging, setDragging] = useState(false);
-    const [position, setPosition] = useState({ x: window.innerWidth / 2 - 200, y: window.innerHeight / 2 - 150 });
+    const [position, setPosition] = useState({ x: 0, y: 0 });
     const [offset, setOffset] = useState({ x: 0, y: 0 });
+
+    useEffect(() => {
+        const updatePosition = () => {
+            const modalWidth = 410; // 모달의 너비와 높이
+            const modalHeight = 490;
+            setPosition({
+                x: window.innerWidth / 2 - modalWidth / 2,
+                y: window.innerHeight / 2 - modalHeight / 2,
+            });
+        };
+
+        updatePosition(); // 초기 위치 설정
+
+        window.addEventListener('resize', updatePosition); // 창 크기 조절 시 재계산
+
+        return () => {
+            window.removeEventListener('resize', updatePosition);
+        };
+    }, []);
 
     useEffect(() => {
         if (nickname) {
@@ -123,7 +142,7 @@ function ChatModal({ onClose }) {
             ) : (
                 <div
                     className="chatmodal-window"
-                    style={{ top: `${position.y}px`, left: `${position.x}px` }}
+                    style={{ top: `${position.y}px`, left: `${position.x}px`, position: 'fixed' }}
                     onMouseDown={(e) => e.stopPropagation()}
                 >
                     <div
@@ -138,11 +157,15 @@ function ChatModal({ onClose }) {
                     <div className="chatmodal-content">
                         {view === 'rooms' ? (
                             <div className="chatrooms-container">
-                                <div className="chatrooms-header">Chat Rooms</div>
+                                <div className="chatrooms-header" style={{ fontSize: '40px', margin: '0 0 0 78px' }}>Chat Rooms</div>
                                 <div className="chatrooms-room-list">
-                                    <div className="chatrooms-room-list-header">Available Rooms:</div>
+                                    <div className="chatrooms-room-list-header">활성화 방목록</div>
                                     {rooms.length === 0 ? (
-                                        <div>No rooms available</div>
+                                        <div style={{
+                                            color: 'red',
+                                            margin: '30px 0px 30px 73px',
+                                            fontSize: '20px'
+                                        }}>생성 된 방이 없습니다.</div>
                                     ) : (
                                         rooms.map((roomName, index) => (
                                             <div

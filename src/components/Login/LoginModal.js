@@ -5,18 +5,20 @@ import logo from '../../assets/loginlogo.png';
 function LoginModal({ onClose, onLoginSuccess }) {
   const [dragging, setDragging] = useState(false);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
-  const [pos, setPos] = useState({ x: window.innerWidth / 2 - 150, y: window.innerHeight / 2 - 100 });
+  const [pos, setPos] = useState({ x: 0, y: 0 });
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [nickname, setNickname] = useState(''); // 닉네임 추가
+  const [nickname, setNickname] = useState(''); 
   const [error, setError] = useState('');
-  const [isRegisterMode, setIsRegisterMode] = useState(false); // 회원가입 모드인지 확인하는 상태
+  const [isRegisterMode, setIsRegisterMode] = useState(false); 
 
   useEffect(() => {
-    setPos({
-      x: window.innerWidth / 2 - 150,
-      y: window.innerHeight / 2 - 100
-    });
+    const windowWidth = 300; // 모달 창의 너비
+    const windowHeight = 200; // 모달 창의 높이
+    const centerX = window.innerWidth / 2 - windowWidth / 2;
+    const centerY = window.innerHeight / 2 - windowHeight / 2;
+
+    setPos({ x: centerX, y: centerY });
   }, []);
 
   useEffect(() => {
@@ -54,17 +56,16 @@ function LoginModal({ onClose, onLoginSuccess }) {
     e.preventDefault();
     if (isRegisterMode) {
       try {
-        // 회원가입 로직
         const response = await fetch('http://localhost:3001/register', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ username, password, nickname }), // 닉네임도 함께 전송
+          body: JSON.stringify({ username, password, nickname }), 
         });
         if (response.ok) {
           alert('Registration successful!');
-          setIsRegisterMode(false); // 회원가입 후 로그인 모드로 전환
+          setIsRegisterMode(false); 
         } else {
           setError('Registration failed');
         }
@@ -72,7 +73,6 @@ function LoginModal({ onClose, onLoginSuccess }) {
         setError('An error occurred during registration');
       }
     } else {
-      // 로그인 로직
       try {
         const response = await fetch('http://localhost:3001/login', {
           method: 'POST',
@@ -85,7 +85,7 @@ function LoginModal({ onClose, onLoginSuccess }) {
         if (response.ok) {
           const data = await response.json();
           setError('');
-          onLoginSuccess(data.nickname); // 닉네임을 onLoginSuccess에 전달
+          onLoginSuccess(data.nickname); 
           onClose();
         } else {
           setError('Invalid username or password');
@@ -100,7 +100,12 @@ function LoginModal({ onClose, onLoginSuccess }) {
     <div className="new-modal-backdrop">
       <div
         className="new-window"
-        style={{ left: `${pos.x}px`, top: `${pos.y}px` }}
+        style={{ 
+          left: `${pos.x}px`, 
+          top: `${pos.y}px`, 
+          width: '300px', // 모달의 고정된 너비
+          height: '200px' // 모달의 고정된 높이
+        }}
         onMouseDown={handleMouseDown}
         onClick={(e) => e.stopPropagation()}
       >
@@ -110,7 +115,7 @@ function LoginModal({ onClose, onLoginSuccess }) {
         <div className="new-content-container">
           <img src={logo} alt="Windows Logo" />
           {error && <p style={{ color: 'red' }}>{error}</p>}
-          <form className="new-login-form" style={{ color: '400px' }} onSubmit={handleOkClick}>
+          <form className="new-login-form" onSubmit={handleOkClick}>
             <div className="new-form-group">
               <label htmlFor="username">User Name:</label>
               <input 

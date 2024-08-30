@@ -104,8 +104,8 @@ function ChatLoginModal({ onClose, onLoginSuccess }) {
           </div>
         </div>
         <div className="chatlogin-content-container">
-          <img src={logo} alt="Windows Logo" style={{ width: '100%', margin:'15px 0 15px 0'}} />
-          {error && <p style={{ color: 'red' }}>{error}</p>}
+          <img src={logo} alt="Windows Logo" style={{ width: '90%', margin:'15px 13px'}} />
+          {error && <p style={{ color: 'red', margin: '0px 0px 20px 46px' }}>{error}</p>}
           <form className="chatlogin-form" onSubmit={handleOkClick} style={{ width: '270', height: '145', margin: '15px 0 0 50px'}}>
             <div className="chatlogin-form-group">
               <label htmlFor="username">User Name:</label>
@@ -139,7 +139,7 @@ function ChatLoginModal({ onClose, onLoginSuccess }) {
                 required 
               />
             </div>
-            <div className="new-buttons" style={{ margin: '0 0 0 -54px' }}>
+            <div className="new-buttons" style={{ margin: '45px 0 0 -55px' }}>
               <button 
                   type="button" 
                   className="chatlogin-toggle-mode" 
