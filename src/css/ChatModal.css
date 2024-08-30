@@ -1,3 +1,4 @@
+/* 모달 배경 설정 */
 .chatmodal-backdrop {
     position: fixed;
     top: 0;
@@ -10,8 +11,9 @@
     z-index: 1000;
 }
 
+/* 모달 창 설정 */
 .chatmodal-window {
-    position: absolute;
+    position: relative;
     min-width: 410px;
     min-height: 490px;
     background-color: #c7c7c7;
@@ -21,8 +23,11 @@
     border-right: 2px solid #2A2A2A;
     border-bottom: 2px solid #2A2A2A;
     font-family: 'NeoDunggeunmo', sans-serif;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* 그림자 추가로 입체감 부여 */
+    border-radius: 8px; /* 모서리 둥글게 */
 }
 
+/* 모달 제목 표시줄 */
 .chatmodal-title-bar {
     background-color: #000080;
     padding: 4px;
@@ -32,14 +37,17 @@
     align-items: center;
     color: white;
     border-bottom: 2px solid #2A2A2A;
+    border-radius: 8px 8px 0 0; /* 모서리 둥글게 */
 }
 
+/* 제목 */
 .chatmodal-title {
     font-size: 14px;
     font-family: 'NeoDunggeunmo';
     margin-left: 5px;
 }
 
+/* 닫기 버튼 */
 .chatmodal-close {
     width: 22px;
     height: 22px;
@@ -51,6 +59,7 @@
     justify-content: center;
     cursor: pointer;
     margin-right: 5px;
+    border-radius: 4px; /* 모서리 둥글게 */
 }
 
 .chatmodal-close:hover {
@@ -61,11 +70,13 @@
     border-bottom: 2px solid #FCFCFC;
 }
 
+/* 닫기 버튼의 'X' 기호 */
 .chatmodal-close > .symbol {
     width: 12px;
     height: 2px;
     background-color: #000000;
     transform: rotate(45deg);
+    position: relative;
 }
 
 .chatmodal-close > .symbol::after {
@@ -77,30 +88,36 @@
     transform: rotate(90deg);
 }
 
+/* 모달 내용 */
 .chatmodal-content {
     padding: 20px;
     font-family: 'NeoDunggeunmo';
     color: black;
 }
 
+/* 모달 헤더 */
 .chatmodal-header {
     font-size: 18px;
     margin-bottom: 20px;
     text-align: center;
 }
 
+/* 메시지 목록 */
 .chatmodal-messages {
     padding: 10px;
-    height: 250px;
+    height: 320px;
     overflow-y: auto;
     background-color: #ffffff;
     border: 1px solid #2A2A2A;
+    border-radius: 4px;
 }
 
+/* 개별 메시지 항목 */
 .chatmodal-message-item {
     margin-bottom: 10px;
 }
 
+/* 모달 푸터 */
 .chatmodal-footer {
     display: flex;
     align-items: center;
@@ -111,6 +128,7 @@
     flex: 1;
     padding: 5px;
     font-family: 'NeoDunggeunmo';
+    border-radius: 4px;
 }
 
 .chatmodal-footer button {
@@ -120,25 +138,31 @@
     border: none;
     cursor: pointer;
     font-family: 'NeoDunggeunmo';
+    border-radius: 4px;
 }
 
+/* 채팅방 목록 헤더 */
 .chatrooms-room-list-header {
+    margin-top: 30px;
     margin-bottom: 10px;
-    font-size: 16px;
+    font-size: 20px;
 }
 
+/* 채팅방 항목 */
 .chatrooms-room-item {
     padding: 10px;
     border: 1px solid #2A2A2A;
     margin-bottom: 5px;
     background-color: #fff;
     cursor: pointer;
+    border-radius: 4px;
 }
 
 .chatrooms-room-item:hover {
     background-color: #e6e6e6;
 }
 
+/* 채팅방 생성 버튼 */
 .chatrooms-create-room-button {
     margin-top: 10px;
     padding: 5px 10px;
@@ -146,4 +170,5 @@
     border: none;
     cursor: pointer;
     font-family: 'NeoDunggeunmo';
+    border-radius: 4px;
 }
